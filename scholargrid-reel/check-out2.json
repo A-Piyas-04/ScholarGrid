@@ -1,0 +1,1532 @@
+﻿node.exe : [hyperframes] check: the report is saved to E:\Projects\My 
+Apps\ScholarGrid\scholargrid-reel\.hyperframes\artifacts\checks\0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3.json when the 
+check ends, unless a warning says it could not be saved
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([hyperframes] c...ld not be saved:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[INFO] [Compiler] Fetched 9 font face(s) for "Outfit" from Google Fonts (cached to 
+C:\Users\ACER\.cache\hyperframes\fonts\outfit)
+[INFO] [Compiler] Fetched 4 font face(s) for "Space Mono" from Google Fonts (cached to 
+C:\Users\ACER\.cache\hyperframes\fonts\space-mono)
+[INFO] [Compiler] Injected deterministic @font-face rules for 2 requested font families
+[hyperframes] check: starting Chrome
+[hyperframes] check: loading the page
+[hyperframes] check: waiting for the page to be ready
+[hyperframes] check: checking samples
+[hyperframes] check: samples 1/9
+[hyperframes] check: samples 2/9
+[hyperframes] check: samples 3/9
+[hyperframes] check: samples 4/9
+[hyperframes] check: samples 5/9
+[hyperframes] check: samples 6/9
+[hyperframes] check: samples 7/9
+[hyperframes] check: samples 8/9
+[hyperframes] check: samples 9/9
+[hyperframes] check: running the overlap pass
+[hyperframes] check: craft 1/320
+[hyperframes] check: craft 2/320
+[hyperframes] check: craft 3/320
+[hyperframes] check: craft 4/320
+[hyperframes] check: craft 5/320
+[hyperframes] check: craft 6/320
+[hyperframes] check: craft 7/320
+[hyperframes] check: craft 8/320
+[hyperframes] check: craft 9/320
+[hyperframes] check: craft 10/320
+[hyperframes] check: craft 11/320
+[hyperframes] check: craft 12/320
+[hyperframes] check: craft 13/320
+[hyperframes] check: craft 14/320
+[hyperframes] check: craft 15/320
+[hyperframes] check: craft 16/320
+[hyperframes] check: craft 17/320
+[hyperframes] check: craft 18/320
+[hyperframes] check: craft 19/320
+[hyperframes] check: craft 20/320
+[hyperframes] check: craft 21/320
+[hyperframes] check: craft 22/320
+[hyperframes] check: craft 23/320
+[hyperframes] check: craft 24/320
+[hyperframes] check: craft 25/320
+[hyperframes] check: craft 26/320
+[hyperframes] check: craft 27/320
+[hyperframes] check: craft 28/320
+[hyperframes] check: craft 29/320
+[hyperframes] check: craft 30/320
+[hyperframes] check: craft 31/320
+[hyperframes] check: craft 32/320
+[hyperframes] check: craft 33/320
+[hyperframes] check: craft 34/320
+[hyperframes] check: craft 35/320
+[hyperframes] check: craft 36/320
+[hyperframes] check: craft 37/320
+[hyperframes] check: craft 38/320
+[hyperframes] check: craft 39/320
+[hyperframes] check: craft 40/320
+[hyperframes] check: craft 41/320
+[hyperframes] check: craft 42/320
+[hyperframes] check: craft 43/320
+[hyperframes] check: craft 44/320
+[hyperframes] check: craft 45/320
+[hyperframes] check: craft 46/320
+[hyperframes] check: craft 47/320
+[hyperframes] check: craft 48/320
+[hyperframes] check: craft 49/320
+[hyperframes] check: craft 50/320
+[hyperframes] check: craft 51/320
+[hyperframes] check: craft 52/320
+[hyperframes] check: craft 53/320
+[hyperframes] check: craft 54/320
+[hyperframes] check: craft 55/320
+[hyperframes] check: craft 56/320
+[hyperframes] check: craft 57/320
+[hyperframes] check: craft 58/320
+[hyperframes] check: craft 59/320
+[hyperframes] check: craft 60/320
+[hyperframes] check: craft 61/320
+[hyperframes] check: craft 62/320
+[hyperframes] check: craft 63/320
+[hyperframes] check: craft 64/320
+[hyperframes] check: craft 65/320
+[hyperframes] check: craft 66/320
+[hyperframes] check: craft 67/320
+[hyperframes] check: craft 68/320
+[hyperframes] check: craft 69/320
+[hyperframes] check: craft 70/320
+[hyperframes] check: craft 71/320
+[hyperframes] check: craft 72/320
+[hyperframes] check: craft 73/320
+[hyperframes] check: craft 74/320
+[hyperframes] check: craft 75/320
+[hyperframes] check: craft 76/320
+[hyperframes] check: craft 77/320
+[hyperframes] check: craft 78/320
+[hyperframes] check: craft 79/320
+[hyperframes] check: craft 80/320
+[hyperframes] check: craft 81/320
+[hyperframes] check: craft 82/320
+[hyperframes] check: craft 83/320
+[hyperframes] check: craft 84/320
+[hyperframes] check: craft 85/320
+[hyperframes] check: craft 86/320
+[hyperframes] check: craft 87/320
+[hyperframes] check: craft 88/320
+[hyperframes] check: craft 89/320
+[hyperframes] check: craft 90/320
+[hyperframes] check: craft 91/320
+[hyperframes] check: craft 92/320
+[hyperframes] check: craft 93/320
+[hyperframes] check: craft 94/320
+[hyperframes] check: craft 95/320
+[hyperframes] check: craft 96/320
+[hyperframes] check: craft 97/320
+[hyperframes] check: craft 98/320
+[hyperframes] check: craft 99/320
+[hyperframes] check: craft 100/320
+[hyperframes] check: craft 101/320
+[hyperframes] check: craft 102/320
+[hyperframes] check: craft 103/320
+[hyperframes] check: craft 104/320
+[hyperframes] check: craft 105/320
+[hyperframes] check: craft 106/320
+[hyperframes] check: craft 107/320
+[hyperframes] check: craft 108/320
+[hyperframes] check: craft 109/320
+[hyperframes] check: craft 110/320
+[hyperframes] check: craft 111/320
+[hyperframes] check: craft 112/320
+[hyperframes] check: craft 113/320
+[hyperframes] check: craft 114/320
+[hyperframes] check: craft 115/320
+[hyperframes] check: craft 116/320
+[hyperframes] check: craft 117/320
+[hyperframes] check: craft 118/320
+[hyperframes] check: craft 119/320
+[hyperframes] check: craft 120/320
+[hyperframes] check: craft 121/320
+[hyperframes] check: craft 122/320
+[hyperframes] check: craft 123/320
+[hyperframes] check: craft 124/320
+[hyperframes] check: craft 125/320
+[hyperframes] check: craft 126/320
+[hyperframes] check: craft 127/320
+[hyperframes] check: craft 128/320
+[hyperframes] check: craft 129/320
+[hyperframes] check: craft 130/320
+[hyperframes] check: craft 131/320
+[hyperframes] check: craft 132/320
+[hyperframes] check: craft 133/320
+[hyperframes] check: craft 134/320
+[hyperframes] check: craft 135/320
+[hyperframes] check: craft 136/320
+[hyperframes] check: craft 137/320
+[hyperframes] check: craft 138/320
+[hyperframes] check: craft 139/320
+[hyperframes] check: craft 140/320
+[hyperframes] check: craft 141/320
+[hyperframes] check: craft 142/320
+[hyperframes] check: craft 143/320
+[hyperframes] check: craft 144/320
+[hyperframes] check: craft 145/320
+[hyperframes] check: craft 146/320
+[hyperframes] check: craft 147/320
+[hyperframes] check: craft 148/320
+[hyperframes] check: craft 149/320
+[hyperframes] check: craft 150/320
+[hyperframes] check: craft 151/320
+[hyperframes] check: craft 152/320
+[hyperframes] check: craft 153/320
+[hyperframes] check: craft 154/320
+[hyperframes] check: craft 155/320
+[hyperframes] check: craft 156/320
+[hyperframes] check: craft 157/320
+[hyperframes] check: craft 158/320
+[hyperframes] check: craft 159/320
+[hyperframes] check: craft 160/320
+[hyperframes] check: craft 161/320
+[hyperframes] check: craft 162/320
+[hyperframes] check: craft 163/320
+[hyperframes] check: craft 164/320
+[hyperframes] check: craft 165/320
+[hyperframes] check: craft 166/320
+[hyperframes] check: craft 167/320
+[hyperframes] check: craft 168/320
+[hyperframes] check: craft 169/320
+[hyperframes] check: craft 170/320
+[hyperframes] check: craft 171/320
+[hyperframes] check: craft 172/320
+[hyperframes] check: craft 173/320
+[hyperframes] check: craft 174/320
+[hyperframes] check: craft 175/320
+[hyperframes] check: craft 176/320
+[hyperframes] check: craft 177/320
+[hyperframes] check: craft 178/320
+[hyperframes] check: craft 179/320
+[hyperframes] check: craft 180/320
+[hyperframes] check: craft 181/320
+[hyperframes] check: craft 182/320
+[hyperframes] check: craft 183/320
+[hyperframes] check: craft 184/320
+[hyperframes] check: craft 185/320
+[hyperframes] check: craft 186/320
+[hyperframes] check: craft 187/320
+[hyperframes] check: craft 188/320
+[hyperframes] check: craft 189/320
+[hyperframes] check: craft 190/320
+[hyperframes] check: craft 191/320
+[hyperframes] check: craft 192/320
+[hyperframes] check: craft 193/320
+[hyperframes] check: craft 194/320
+[hyperframes] check: craft 195/320
+[hyperframes] check: craft 196/320
+[hyperframes] check: craft 197/320
+[hyperframes] check: craft 198/320
+[hyperframes] check: craft 199/320
+[hyperframes] check: craft 200/320
+[hyperframes] check: craft 201/320
+[hyperframes] check: craft 202/320
+[hyperframes] check: craft 203/320
+[hyperframes] check: craft 204/320
+[hyperframes] check: craft 205/320
+[hyperframes] check: craft 206/320
+[hyperframes] check: craft 207/320
+[hyperframes] check: craft 208/320
+[hyperframes] check: craft 209/320
+[hyperframes] check: craft 210/320
+[hyperframes] check: craft 211/320
+[hyperframes] check: craft 212/320
+[hyperframes] check: craft 213/320
+[hyperframes] check: craft 214/320
+[hyperframes] check: craft 215/320
+[hyperframes] check: craft 216/320
+[hyperframes] check: craft 217/320
+[hyperframes] check: craft 218/320
+[hyperframes] check: craft 219/320
+[hyperframes] check: craft 220/320
+[hyperframes] check: craft 221/320
+[hyperframes] check: craft 222/320
+[hyperframes] check: craft 223/320
+[hyperframes] check: craft 224/320
+[hyperframes] check: craft 225/320
+[hyperframes] check: craft 226/320
+[hyperframes] check: craft 227/320
+[hyperframes] check: craft 228/320
+[hyperframes] check: craft 229/320
+[hyperframes] check: craft 230/320
+[hyperframes] check: craft 231/320
+[hyperframes] check: craft 232/320
+[hyperframes] check: craft 233/320
+[hyperframes] check: craft 234/320
+[hyperframes] check: craft 235/320
+[hyperframes] check: craft 236/320
+[hyperframes] check: craft 237/320
+[hyperframes] check: craft 238/320
+[hyperframes] check: craft 239/320
+[hyperframes] check: craft 240/320
+[hyperframes] check: craft 241/320
+[hyperframes] check: craft 242/320
+[hyperframes] check: craft 243/320
+[hyperframes] check: craft 244/320
+[hyperframes] check: craft 245/320
+[hyperframes] check: craft 246/320
+[hyperframes] check: craft 247/320
+[hyperframes] check: craft 248/320
+[hyperframes] check: craft 249/320
+[hyperframes] check: craft 250/320
+[hyperframes] check: craft 251/320
+[hyperframes] check: craft 252/320
+[hyperframes] check: craft 253/320
+[hyperframes] check: craft 254/320
+[hyperframes] check: craft 255/320
+[hyperframes] check: craft 256/320
+[hyperframes] check: craft 257/320
+[hyperframes] check: craft 258/320
+[hyperframes] check: craft 259/320
+[hyperframes] check: craft 260/320
+[hyperframes] check: craft 261/320
+[hyperframes] check: craft 262/320
+[hyperframes] check: craft 263/320
+[hyperframes] check: craft 264/320
+[hyperframes] check: craft 265/320
+[hyperframes] check: craft 266/320
+[hyperframes] check: craft 267/320
+[hyperframes] check: craft 268/320
+[hyperframes] check: craft 269/320
+[hyperframes] check: craft 270/320
+[hyperframes] check: craft 271/320
+[hyperframes] check: craft 272/320
+[hyperframes] check: craft 273/320
+[hyperframes] check: craft 274/320
+[hyperframes] check: craft 275/320
+[hyperframes] check: craft 276/320
+[hyperframes] check: craft 277/320
+[hyperframes] check: craft 278/320
+[hyperframes] check: craft 279/320
+[hyperframes] check: craft 280/320
+[hyperframes] check: craft 281/320
+[hyperframes] check: craft 282/320
+[hyperframes] check: craft 283/320
+[hyperframes] check: craft 284/320
+[hyperframes] check: craft 285/320
+[hyperframes] check: craft 286/320
+[hyperframes] check: craft 287/320
+[hyperframes] check: craft 288/320
+[hyperframes] check: craft 289/320
+[hyperframes] check: craft 290/320
+[hyperframes] check: craft 291/320
+[hyperframes] check: craft 292/320
+[hyperframes] check: craft 293/320
+[hyperframes] check: craft 294/320
+[hyperframes] check: craft 295/320
+[hyperframes] check: craft 296/320
+[hyperframes] check: craft 297/320
+[hyperframes] check: craft 298/320
+[hyperframes] check: craft 299/320
+[hyperframes] check: craft 300/320
+[hyperframes] check: craft 301/320
+[hyperframes] check: craft 302/320
+[hyperframes] check: craft 303/320
+[hyperframes] check: craft 304/320
+[hyperframes] check: craft 305/320
+[hyperframes] check: craft 306/320
+[hyperframes] check: craft 307/320
+[hyperframes] check: craft 308/320
+[hyperframes] check: craft 309/320
+[hyperframes] check: craft 310/320
+[hyperframes] check: craft 311/320
+[hyperframes] check: craft 312/320
+[hyperframes] check: craft 313/320
+[hyperframes] check: craft 314/320
+[hyperframes] check: craft 315/320
+[hyperframes] check: craft 316/320
+[hyperframes] check: craft 317/320
+[hyperframes] check: craft 318/320
+[hyperframes] check: craft 319/320
+[hyperframes] check: craft 320/320
+[hyperframes] check: overlap 1/23
+[hyperframes] check: overlap 2/23
+[hyperframes] check: overlap 3/23
+[hyperframes] check: overlap 4/23
+[hyperframes] check: overlap 5/23
+[hyperframes] check: overlap 6/23
+[hyperframes] check: overlap 7/23
+[hyperframes] check: overlap 8/23
+[hyperframes] check: overlap 9/23
+[hyperframes] check: overlap 10/23
+[hyperframes] check: overlap 11/23
+[hyperframes] check: overlap 12/23
+[hyperframes] check: overlap 13/23
+[hyperframes] check: overlap 14/23
+[hyperframes] check: overlap 15/23
+[hyperframes] check: overlap 16/23
+[hyperframes] check: overlap 17/23
+[hyperframes] check: overlap 18/23
+[hyperframes] check: overlap 19/23
+[hyperframes] check: overlap 20/23
+[hyperframes] check: overlap 21/23
+[hyperframes] check: overlap 22/23
+[hyperframes] check: overlap 23/23
+[hyperframes] check: checking samples
+[hyperframes] check: analyze 0/3
+[hyperframes] check: analyzing the samples
+[hyperframes] check: analyze 1/3
+[hyperframes] check: analyze 2/3
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "filesScanned": 7
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 19,
+    "infoCount": 1,
+    "findings": [
+      {
+        "selector": "#hook-b",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s01-hook.html",
+        "bbox": {
+          "x": 279.56,
+          "y": 756.39,
+          "width": 520.86,
+          "height": 91
+        },
+        "time": 2.222,
+        "rect": {
+          "left": 279.56,
+          "top": 756.39,
+          "right": 800.42,
+          "bottom": 847.39,
+          "width": 520.86,
+          "height": 91
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "like a lottery",
+        "message": "<div> \"like a lottery\" is outside the safe area: TikTok (right edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 2.222,
+        "lastSeen": 2.222,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          2.222
+        ]
+      },
+      {
+        "selector": "#ctx-a",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s02-context.html",
+        "bbox": {
+          "x": 373.17,
+          "y": 273,
+          "width": 333.66,
+          "height": 73
+        },
+        "time": 6.667,
+        "rect": {
+          "left": 373.17,
+          "top": 273,
+          "right": 706.83,
+          "bottom": 346,
+          "width": 333.66,
+          "height": 73
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Not a feed.",
+        "message": "<div> \"Not a feed.\" is outside the safe area: YouTube Shorts (top edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 6.667,
+        "lastSeen": 6.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          6.667
+        ]
+      },
+      {
+        "selector": "#ten-h",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 259.91,
+          "y": 254,
+          "width": 560.17,
+          "height": 66
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 259.91,
+          "top": 254,
+          "right": 820.08,
+          "bottom": 320,
+          "width": 560.17,
+          "height": 66
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "10 titles discovery ≠",
+        "message": "<div> \"10 titles discovery ≠\" is outside the safe area: Instagram Reels (top edge), YouTube Shorts (top edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r1 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 416,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 416,
+          "right": 127.83,
+          "bottom": 454,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "01",
+        "message": "<span> \"01\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r2 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 487,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 487,
+          "right": 127.83,
+          "bottom": 525,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "02",
+        "message": "<span> \"02\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r3 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 558,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 558,
+          "right": 127.83,
+          "bottom": 596,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "03",
+        "message": "<span> \"03\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r4 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 629,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 629,
+          "right": 127.83,
+          "bottom": 667,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "04",
+        "message": "<span> \"04\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r5 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 700,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 700,
+          "right": 127.83,
+          "bottom": 738,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "05",
+        "message": "<span> \"05\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r6 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 771,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 771,
+          "right": 127.83,
+          "bottom": 809,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "06",
+        "message": "<span> \"06\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r7 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 842,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 842,
+          "right": 127.83,
+          "bottom": 880,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "07",
+        "message": "<span> \"07\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r8 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 913,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 913,
+          "right": 127.83,
+          "bottom": 951,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "08",
+        "message": "<span> \"08\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r9 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 984,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 984,
+          "right": 127.83,
+          "bottom": 1022,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "09",
+        "message": "<span> \"09\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#r10 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 96,
+          "y": 1055,
+          "width": 31.83,
+          "height": 38
+        },
+        "time": 11.111,
+        "rect": {
+          "left": 96,
+          "top": 1055,
+          "right": 127.83,
+          "bottom": 1093,
+          "width": 31.83,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "10",
+        "message": "<span> \"10\" is outside the safe area: TikTok (left edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 11.111,
+        "lastSeen": 11.111,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          11.111
+        ]
+      },
+      {
+        "selector": "#mech-brand",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 361.27,
+          "y": 240,
+          "width": 357.46,
+          "height": 86
+        },
+        "time": 15.556,
+        "rect": {
+          "left": 361.27,
+          "top": 240,
+          "right": 718.73,
+          "bottom": 326,
+          "width": 357.46,
+          "height": 86
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Scholar Grid",
+        "message": "<div> \"Scholar Grid\" is outside the safe area: Instagram Reels (top edge), YouTube Shorts (top edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 15.556,
+        "lastSeen": 20,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          15.556,
+          20
+        ]
+      },
+      {
+        "selector": "#st3",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 812.59,
+          "y": 355,
+          "width": 76.13,
+          "height": 33
+        },
+        "time": 15.556,
+        "rect": {
+          "left": 812.59,
+          "top": 355,
+          "right": 888.72,
+          "bottom": 388,
+          "width": 76.13,
+          "height": 33
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Label",
+        "message": "<div> \"Label\" is outside the safe area: YouTube Shorts (right edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 15.556,
+        "lastSeen": 20,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          15.556,
+          20
+        ]
+      },
+      {
+        "selector": "#lab4",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 635,
+          "y": 1109,
+          "width": 182.56,
+          "height": 29
+        },
+        "time": 20,
+        "rect": {
+          "left": 635,
+          "top": 1109,
+          "right": 817.56,
+          "bottom": 1138,
+          "width": 182.56,
+          "height": 29
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Agents · tools",
+        "message": "<div> \"Agents · tools\" is outside the safe area: TikTok (right edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 20,
+        "lastSeen": 20,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          20
+        ]
+      },
+      {
+        "selector": "#mech-growth",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 90,
+          "y": 1380,
+          "width": 214.3,
+          "height": 38
+        },
+        "time": 20,
+        "rect": {
+          "left": 90,
+          "top": 1380,
+          "right": 304.3,
+          "bottom": 1418,
+          "width": 214.3,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Publishing rising",
+        "message": "<div> \"Publishing rising\" is outside the safe area: TikTok (bottom edge), Instagram Reels (bottom edge), YouTube Shorts (bottom edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 20,
+        "lastSeen": 20,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          20
+        ]
+      },
+      {
+        "selector": "#mech-sparse",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 663.7,
+          "y": 1380,
+          "width": 326.3,
+          "height": 38
+        },
+        "time": 20,
+        "rect": {
+          "left": 663.7,
+          "top": 1380,
+          "right": 990,
+          "bottom": 1418,
+          "width": 326.3,
+          "height": 38
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Neighbourhoods sparse",
+        "message": "<div> \"Neighbourhoods sparse\" is outside the safe area: TikTok (bottom edge), Instagram Reels (bottom edge), YouTube Shorts (bottom edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 20,
+        "lastSeen": 20,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          20
+        ]
+      },
+      {
+        "selector": "#pay-h",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s05-payoff.html",
+        "bbox": {
+          "x": 371.23,
+          "y": 213,
+          "width": 337.54,
+          "height": 133.89
+        },
+        "time": 24.444,
+        "rect": {
+          "left": 371.23,
+          "top": 213,
+          "right": 708.77,
+          "bottom": 346.89,
+          "width": 337.54,
+          "height": 133.89
+        },
+        "code": "outside_safe_zone",
+        "severity": "warning",
+        "text": "Drops youon the map",
+        "message": "<h2> \"Drops youon the map\" is outside the safe area: TikTok (top edge), Instagram Reels (top edge), YouTube Shorts (top edge).",
+        "fixHint": "Move the text inside the safe area, or mark text meant to sit there with data-layout-allow-safe-zone.",
+        "firstSeen": 24.444,
+        "lastSeen": 28.889,
+        "occurrences": 2,
+        "heldMs": 0,
+        "times": [
+          24.444,
+          28.889
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 33.333,
+        "selector": "#end-bg",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -37.48,
+          "top": -66.62,
+          "right": 1117.48,
+          "bottom": 1986.62,
+          "width": 1154.95,
+          "height": 2053.25
+        },
+        "containerSelector": "#s06-end > div:nth-of-type(1)",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1080,
+          "bottom": 1920,
+          "width": 1080,
+          "height": 1920
+        },
+        "overflow": {
+          "left": 37.48,
+          "right": 37.48,
+          "top": 66.62,
+          "bottom": 66.62
+        },
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-end.html",
+        "bbox": {
+          "x": -37.48,
+          "y": -66.62,
+          "width": 1154.95,
+          "height": 2053.25
+        },
+        "firstSeen": 33.333,
+        "lastSeen": 33.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          33.333
+        ]
+      }
+    ],
+    "duration": 40,
+    "samples": [
+      2.222,
+      6.667,
+      11.111,
+      15.556,
+      20,
+      24.444,
+      28.889,
+      33.333,
+      37.778
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 20,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      2.222,
+      11.111,
+      20,
+      28.889,
+      37.778
+    ],
+    "checked": 48,
+    "passed": 48
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 6,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "first_frame_empty",
+        "severity": "warning",
+        "message": "Frame 0 shows only the background, and the first frame is the thumbnail on social players: have the title or key image already on screen at 0 s instead of entering from nothing; see references/review.md.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"arXiv · keyword chaos\" renders at 26 px for 2.88 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "arXiv · keyword chaos",
+        "selector": "#hook-sub",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s01-hook.html",
+        "bbox": {
+          "x": 351.08,
+          "y": 860.78,
+          "width": 377.84,
+          "height": 38
+        },
+        "time": 1,
+        "times": [
+          1
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 2.875,
+        "elements": [
+          {
+            "selector": "#hook-sub",
+            "text": "arXiv · keyword chaos",
+            "fontPx": 26,
+            "time": 1,
+            "seconds": 2.875
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 20 text elements stay under it for 0.5 s or more, the smallest \"Attention Is All You Need\" at 26 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Attention Is All You Need",
+        "selector": "#r1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s03-tension.html",
+        "bbox": {
+          "x": 156.62,
+          "y": 416,
+          "width": 397.81,
+          "height": 38
+        },
+        "time": 8.375,
+        "times": [
+          8.375,
+          8.375,
+          8.375,
+          8.375,
+          8.5,
+          8.5,
+          8.625,
+          8.625,
+          8.75,
+          8.75,
+          8.75,
+          8.75,
+          8.875,
+          8.875,
+          9,
+          9,
+          9,
+          9,
+          9.125,
+          9.125
+        ],
+        "fontPx": 26,
+        "floorPx": 28,
+        "seconds": 4.25,
+        "elements": [
+          {
+            "selector": "#r1",
+            "text": "Attention Is All You Need",
+            "fontPx": 26,
+            "time": 8.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#r1 > span:nth-of-type(1)",
+            "text": "01",
+            "fontPx": 26,
+            "time": 8.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#r2",
+            "text": "BERT: Pre-training of Deep…",
+            "fontPx": 26,
+            "time": 8.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#r2 > span:nth-of-type(1)",
+            "text": "02",
+            "fontPx": 26,
+            "time": 8.375,
+            "seconds": 4.25
+          },
+          {
+            "selector": "#r3",
+            "text": "Denoising Diffusion Models",
+            "fontPx": 26,
+            "time": 8.5,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#r3 > span:nth-of-type(1)",
+            "text": "03",
+            "fontPx": 26,
+            "time": 8.5,
+            "seconds": 4.125
+          },
+          {
+            "selector": "#r4",
+            "text": "Retrieval-Augmented Gen…",
+            "fontPx": 26,
+            "time": 8.625,
+            "seconds": 4
+          },
+          {
+            "selector": "#r4 > span:nth-of-type(1)",
+            "text": "04",
+            "fontPx": 26,
+            "time": 8.625,
+            "seconds": 4
+          },
+          {
+            "selector": "#r5",
+            "text": "LoRA: Low-Rank Adaptation",
+            "fontPx": 26,
+            "time": 8.75,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#r5 > span:nth-of-type(1)",
+            "text": "05",
+            "fontPx": 26,
+            "time": 8.75,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#r6",
+            "text": "Graph Neural Networks…",
+            "fontPx": 26,
+            "time": 8.75,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#r6 > span:nth-of-type(1)",
+            "text": "06",
+            "fontPx": 26,
+            "time": 8.75,
+            "seconds": 3.875
+          },
+          {
+            "selector": "#r7",
+            "text": "Contrastive Language-Image",
+            "fontPx": 26,
+            "time": 8.875,
+            "seconds": 3.75
+          },
+          {
+            "selector": "#r7 > span:nth-of-type(1)",
+            "text": "07",
+            "fontPx": 26,
+            "time": 8.875,
+            "seconds": 3.75
+          },
+          {
+            "selector": "#r8",
+            "text": "Scaling Laws for Neural…",
+            "fontPx": 26,
+            "time": 9,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#r8 > span:nth-of-type(1)",
+            "text": "08",
+            "fontPx": 26,
+            "time": 9,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#r9",
+            "text": "Mixture-of-Experts Routing",
+            "fontPx": 26,
+            "time": 9,
+            "seconds": 3.625
+[hyperframes] check: report saved to E:\Projects\My 
+Apps\ScholarGrid\scholargrid-reel\.hyperframes\artifacts\checks\0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3.json
+          },
+          {
+            "selector": "#r9 > span:nth-of-type(1)",
+            "text": "09",
+            "fontPx": 26,
+            "time": 9,
+            "seconds": 3.625
+          },
+          {
+            "selector": "#r10",
+            "text": "Toolformer: Language Models",
+            "fontPx": 26,
+            "time": 9.125,
+            "seconds": 3.5
+          },
+          {
+            "selector": "#r10 > span:nth-of-type(1)",
+            "text": "10",
+            "fontPx": 26,
+            "time": 9.125,
+            "seconds": 3.5
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 7 text elements stay under it for 0.5 s or more, the smallest \"LLM alignment\" at 20 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "LLM alignment",
+        "selector": "#lab1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s04-mechanism.html",
+        "bbox": {
+          "x": 175,
+          "y": 631.83,
+          "width": 169.53,
+          "height": 29
+        },
+        "time": 16.375,
+        "times": [
+          13.75,
+          14,
+          14.25,
+          16.375,
+          16.625,
+          16.75,
+          17
+        ],
+        "fontPx": 20,
+        "floorPx": 28,
+        "seconds": 7.375,
+        "elements": [
+          {
+            "selector": "#lab1",
+            "text": "LLM alignment",
+            "fontPx": 20,
+            "time": 16.375,
+            "seconds": 7.375
+          },
+          {
+            "selector": "#lab2",
+            "text": "Vision · multimodal",
+            "fontPx": 20,
+            "time": 16.625,
+            "seconds": 7.125
+          },
+          {
+            "selector": "#lab3",
+            "text": "Retrieval systems",
+            "fontPx": 20,
+            "time": 16.75,
+            "seconds": 7
+          },
+          {
+            "selector": "#lab4",
+            "text": "Agents · tools",
+            "fontPx": 20,
+            "time": 17,
+            "seconds": 6.75
+          },
+          {
+            "selector": "#st1",
+            "text": "Embed",
+            "fontPx": 22,
+            "time": 13.75,
+            "seconds": 10
+          },
+          {
+            "selector": "#st2",
+            "text": "Cluster",
+            "fontPx": 22,
+            "time": 14,
+            "seconds": 9.75
+          },
+          {
+            "selector": "#st3",
+            "text": "Label",
+            "fontPx": 22,
+            "time": 14.25,
+            "seconds": 9.5
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 3 text elements stay under it for 0.5 s or more, the smallest \"Trends\" at 22 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Trends",
+        "selector": "#chip1",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s05-payoff.html",
+        "bbox": {
+          "x": 339.53,
+          "y": 1201.74,
+          "width": 88.72,
+          "height": 33
+        },
+        "time": 27.875,
+        "times": [
+          27.875,
+          28.125,
+          28.25
+        ],
+        "fontPx": 22,
+        "floorPx": 28,
+        "seconds": 5.125,
+        "elements": [
+          {
+            "selector": "#chip1",
+            "text": "Trends",
+            "fontPx": 22,
+            "time": 27.875,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#chip2",
+            "text": "Leads",
+            "fontPx": 22,
+            "time": 28.125,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#chip3",
+            "text": "Evidence",
+            "fontPx": 22,
+            "time": 28.25,
+            "seconds": 4.75
+          }
+        ]
+      },
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and \"Research Landscape Explorer\" renders at 24 px for 4.00 s: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "Research Landscape Explorer",
+        "selector": "#end-tag",
+        "dataAttributes": {},
+        "sourceFile": "compositions/s06-end.html",
+        "bbox": {
+          "x": 322.27,
+          "y": 764.38,
+          "width": 435.46,
+          "height": 36
+        },
+        "time": 36,
+        "times": [
+          36
+        ],
+        "fontPx": 24,
+        "floorPx": 28,
+        "seconds": 4,
+        "elements": [
+          {
+            "selector": "#end-tag",
+            "text": "Research Landscape Explorer",
+            "fontPx": 24,
+            "time": 36,
+            "seconds": 4
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 320
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  },
+  "saved": {
+    "id": "0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3",
+    "revision": null,
+    "report": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\checks\\0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3.json",
+    "attribution": "inputs-changed"
+  },
+  "_meta": {
+    "version": "0.9.53",
+    "updateAvailable": false,
+    "skillsOutdated": 1,
+    "skillsMissing": 5
+  }
+}

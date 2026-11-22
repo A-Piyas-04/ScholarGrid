@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "historyId": "7bd52af4-b8f8-46da-ad1c-76cf77954a01",
+  "currentRevision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "268ff46777938da818baa92a718571785e9acf2cef2d3ffbacbb93483dcba37a",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\26\\268ff46777938da818baa92a718571785e9acf2cef2d3ffbacbb93483dcba37a"
+    },
+    "CLAUDE.md": {
+      "hash": "268ff46777938da818baa92a718571785e9acf2cef2d3ffbacbb93483dcba37a",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\26\\268ff46777938da818baa92a718571785e9acf2cef2d3ffbacbb93483dcba37a"
+    },
+    "SCRIPT.md": {
+      "hash": "de646d8c7603b0743bdda9284098ff730a90dffa952af456801234df81e7c10e",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\de\\de646d8c7603b0743bdda9284098ff730a90dffa952af456801234df81e7c10e"
+    },
+    "SPEC.md": {
+      "hash": "35fa6e0565ea2b3fd5d54270a8d5afc3bc59d60d2652368dde69bea5db289616",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\35\\35fa6e0565ea2b3fd5d54270a8d5afc3bc59d60d2652368dde69bea5db289616"
+    },
+    "STORYLINES.md": {
+      "hash": "33191ddbeb5612c40a453586df9662ba0ea9f64a25c66a234b56d55aa8d8e533",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\33\\33191ddbeb5612c40a453586df9662ba0ea9f64a25c66a234b56d55aa8d8e533"
+    },
+    "assets/sfx/music.mp3": {
+      "hash": "31e039773d31b2a3cda94ce7dbed4300c9b6acc979d9ba79f17302d93097c1ee",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\31\\31e039773d31b2a3cda94ce7dbed4300c9b6acc979d9ba79f17302d93097c1ee"
+    },
+    "assets/sfx/pop.mp3": {
+      "hash": "1b41ec99c2791eb1d292e0f1b09355a3cf0c184db42458d34cd041e249951e4b",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\1b\\1b41ec99c2791eb1d292e0f1b09355a3cf0c184db42458d34cd041e249951e4b"
+    },
+    "assets/sfx/pop.wav": {
+      "hash": "0e08eb33e3c03c7c0fbe163425d567ce76c93adad9d6d7a6093f1574b7c39bae",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\0e\\0e08eb33e3c03c7c0fbe163425d567ce76c93adad9d6d7a6093f1574b7c39bae"
+    },
+    "assets/sfx/rise.mp3": {
+      "hash": "4732d1de74dcd4192687d983b15d2aca3cee81437e639955e3fa973d95a45fad",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\47\\4732d1de74dcd4192687d983b15d2aca3cee81437e639955e3fa973d95a45fad"
+    },
+    "assets/sfx/rise.wav": {
+      "hash": "169cce613c51c1eee1bb45942db467708c15831b3055cd74c001b763d8d4f278",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\16\\169cce613c51c1eee1bb45942db467708c15831b3055cd74c001b763d8d4f278"
+    },
+    "assets/sfx/whoosh.mp3": {
+      "hash": "ecb9ca363e069148d8c7f07e0d4aef21f9c55401ee8c2a706ea4ef91ed90cbc9",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ec\\ecb9ca363e069148d8c7f07e0d4aef21f9c55401ee8c2a706ea4ef91ed90cbc9"
+    },
+    "assets/sfx/whoosh.wav": {
+      "hash": "0d24b32cc612cbdc5d86b543746625a022c13afd7cea93cf1fc974e4e8771465",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\0d\\0d24b32cc612cbdc5d86b543746625a022c13afd7cea93cf1fc974e4e8771465"
+    },
+    "assets/sfx/whoosh2.mp3": {
+      "hash": "0b61e76edd244fbd923243d93bef2c42c8b22d7e6cf26a01f7e5f85cf62a47fd",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\0b\\0b61e76edd244fbd923243d93bef2c42c8b22d7e6cf26a01f7e5f85cf62a47fd"
+    },
+    "assets/sfx/whoosh2.wav": {
+      "hash": "7f5915101c46b6e84e1b1e1bd77ff84f500a7e21701ca7e5e25f8baf42a22cf3",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\7f\\7f5915101c46b6e84e1b1e1bd77ff84f500a7e21701ca7e5e25f8baf42a22cf3"
+    },
+    "assets/vo-script.txt": {
+      "hash": "4ba79a80ea8a27d9451494ecf4a795d119426b653164c3742ae566b4aac8c495",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\4b\\4ba79a80ea8a27d9451494ecf4a795d119426b653164c3742ae566b4aac8c495"
+    },
+    "assets/vo-transcript.json": {
+      "hash": "b7c10ac75721491f370e5b61bd939f79429115e7609494f6aba5eb523bf2c2d4",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\b7\\b7c10ac75721491f370e5b61bd939f79429115e7609494f6aba5eb523bf2c2d4"
+    },
+    "check-out.json": {
+      "hash": "79444d3747476a5905db193276718442a9f7e99690817bf1154d4398f207babe",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\79\\79444d3747476a5905db193276718442a9f7e99690817bf1154d4398f207babe"
+    },
+    "compositions/s01-hook.html": {
+      "hash": "10e1ef39a70ed076453a6c6bcacbd0a329eda2b7883cfe5309c1b5b910ba20ad",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\10\\10e1ef39a70ed076453a6c6bcacbd0a329eda2b7883cfe5309c1b5b910ba20ad"
+    },
+    "compositions/s02-context.html": {
+      "hash": "dc35a0ee9d080c0886836ebfc5bb5b5785fc12585f661cc8d38e30e13889e4bd",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\dc\\dc35a0ee9d080c0886836ebfc5bb5b5785fc12585f661cc8d38e30e13889e4bd"
+    },
+    "compositions/s03-tension.html": {
+      "hash": "e3c338972c4b3dc56ec04e788721b98364eadb39c5c4b9a45b942b8823cb1839",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\e3\\e3c338972c4b3dc56ec04e788721b98364eadb39c5c4b9a45b942b8823cb1839"
+    },
+    "compositions/s04-mechanism.html": {
+      "hash": "03414759439935da846128df399beb6fa2894c6b7936ca75f658eca38ff0c287",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\03\\03414759439935da846128df399beb6fa2894c6b7936ca75f658eca38ff0c287"
+    },
+    "compositions/s05-payoff.html": {
+      "hash": "abf82500aacfcb03c84d8fd7a4373f9330ee977e3135fdce1c757383dd12a9ce",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ab\\abf82500aacfcb03c84d8fd7a4373f9330ee977e3135fdce1c757383dd12a9ce"
+    },
+    "compositions/s06-end.html": {
+      "hash": "c538905b2baaa6665ec6e656042613e884449e4521bca29639bf4198c45ed8b7",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\c5\\c538905b2baaa6665ec6e656042613e884449e4521bca29639bf4198c45ed8b7"
+    },
+    "hyperframes.json": {
+      "hash": "35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\35\\35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7"
+    },
+    "index.html": {
+      "hash": "1fe1428ed065c10c5e2f6e6197dacda19ae02b78ffdeba0df4648b307506932b",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\1f\\1fe1428ed065c10c5e2f6e6197dacda19ae02b78ffdeba0df4648b307506932b"
+    },
+    "meta.json": {
+      "hash": "17c9f1d64d5ed00bcd9553061b99923bbe749160ea2cd47dcb18a7673d01e097",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\17\\17c9f1d64d5ed00bcd9553061b99923bbe749160ea2cd47dcb18a7673d01e097"
+    },
+    "package.json": {
+      "hash": "8312a3e3059dc034db503045af422f47cf099eea335bc06f854be971f19c8f19",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\83\\8312a3e3059dc034db503045af422f47cf099eea335bc06f854be971f19c8f19"
+    },
+    "assets/bed.wav": {
+      "hash": "81bbb852ceaa0bacd52b4df8d423f942a77cf6fbba462f62a5a6ee9b40aab243",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\81\\81bbb852ceaa0bacd52b4df8d423f942a77cf6fbba462f62a5a6ee9b40aab243"
+    },
+    "assets/vo-norm.wav": {
+      "hash": "49e52277cebb19433b8bd41b56f634017eb387260b0ff5107293c843cf51c985",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\49\\49e52277cebb19433b8bd41b56f634017eb387260b0ff5107293c843cf51c985"
+    },
+    "assets/vo.wav": {
+      "hash": "0c4170737d2581bd05fc7ba76dc5a408b37ce0f8a8ea033ef1878a79997e368d",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\0c\\0c4170737d2581bd05fc7ba76dc5a408b37ce0f8a8ea033ef1878a79997e368d"
+    },
+    "check-out2.json": {
+      "hash": "96a797d194de82efd223da3b67b9f4bf47617a9905108dc3d952f364691cad80",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\96\\96a797d194de82efd223da3b67b9f4bf47617a9905108dc3d952f364691cad80"
+    },
+    "assets/transcript.json": {
+      "hash": "759ba708072f6cb101595ffd26a617804d7ca31d0cd0331a4971ce28bae5c6e0",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\75\\759ba708072f6cb101595ffd26a617804d7ca31d0cd0331a4971ce28bae5c6e0"
+    },
+    "render-log.txt": {
+      "hash": "8beb0ebfa566447c79457f926b37b611323684803361fcc0615ba8f29f74b8c7",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\8b\\8beb0ebfa566447c79457f926b37b611323684803361fcc0615ba8f29f74b8c7"
+    },
+    "POST.md": {
+      "hash": "ce4c7379b4d0b0234264d7257b29831c03b00bfd699b4c6206f1a00646cd84b3",
+      "content": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ce\\ce4c7379b4d0b0234264d7257b29831c03b00bfd699b4c6206f1a00646cd84b3"
+    }
+  },
+  "revisions": {
+    "3bc4b24d-2d37-40d8-b635-bb5285667beb": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794764158557,
+      "endedAt": 1794764159168,
+      "files": {
+        "assets/vo-transcript.json": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\c5\\c55759db2b1d168849262c675eda5d7928c2714458e03500ca5de93006fb3db2",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\e3\\e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "check-out.json": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\67\\6770ff6bc7664927fecaa4d3563378c14e54d8c517a60c99883127ed3c2ebda2",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\79\\79444d3747476a5905db193276718442a9f7e99690817bf1154d4398f207babe"
+        },
+        "check-out2.json": {
+          "before": null,
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\3b\\3b3ebf242aa62774225a1979f735b1b66eb08276a3427b6acc1d58fcde8dc567"
+        },
+        "compositions/s01-hook.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\38\\3802ec7978723e026fa59ae96dcf289124a1594f4bedf09b4a469eaacef635aa",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\10\\10e1ef39a70ed076453a6c6bcacbd0a329eda2b7883cfe5309c1b5b910ba20ad"
+        },
+        "compositions/s02-context.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\a4\\a41cc509e7e5e182582e86226c78735fabb0f57bd94ed406197c387d207fe332",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\dc\\dc35a0ee9d080c0886836ebfc5bb5b5785fc12585f661cc8d38e30e13889e4bd"
+        },
+        "compositions/s03-tension.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\e4\\e40aaa45fb26daba13a64331e641c4186f7c75bfedda9f434171b615b4ff38ea",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\62\\62385834a3066d31a78bce86baa8ce6aa615b249ec97c7df7127f2900c112844"
+        },
+        "compositions/s04-mechanism.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\df\\df0918290dfb62d13aa14bc5843d5e1f0c91abcd3c19b727e72a0951af3d31ef",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ad\\add3339f13d420c3deebe0f0ca1bc2d8cb94bdb64dd9cffe1dd95f6934c20fd1"
+        },
+        "compositions/s05-payoff.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\81\\812b40bb93a472060c65a7d4295819c1d98fa3ae12f7d7fa0d972cf33e3d7d1f",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\51\\514c7f70752349c9a520923d93110a87695f072592a2ddf1d03c7adb701192ed"
+        },
+        "compositions/s06-end.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\af\\af063ef5a32430059e09ecebe3c3dd54834a8f2b8fca36756c17d0528526d6e7",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\bd\\bd17005a106469b385bb8f3d154eb817294ea47d06e1c2e9deb460fa0cdfaa52"
+        },
+        "index.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\f3\\f3c9c66592f5754881294544b61155986f5e2b245066af03a29bfa9e86b4f1c7",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\28\\28f498285570477bb3392425f23c330ccfd46a374f75912d11bb2fcd93a9d0c1"
+        }
+      }
+    },
+    "9e87d584-c933-41e2-80e8-90dd124b6bc7": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794764159212,
+      "endedAt": 1794764159214,
+      "files": {
+        "check-out2.json": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\3b\\3b3ebf242aa62774225a1979f735b1b66eb08276a3427b6acc1d58fcde8dc567",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\5a\\5a8e3eed87fcf88a3b39f7b3d192bb55b736a5ff572afef9bbf5913b1a9080c7"
+        }
+      }
+    },
+    "56b17d89-20b4-4edf-b3cf-110aa632d78b": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794764205436,
+      "endedAt": 1794764205452,
+      "files": {
+        "assets/transcript.json": {
+          "before": null,
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\75\\759ba708072f6cb101595ffd26a617804d7ca31d0cd0331a4971ce28bae5c6e0"
+        },
+        "assets/vo-transcript.json": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\e3\\e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\b7\\b7c10ac75721491f370e5b61bd939f79429115e7609494f6aba5eb523bf2c2d4"
+        },
+        "check-out2.json": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\5a\\5a8e3eed87fcf88a3b39f7b3d192bb55b736a5ff572afef9bbf5913b1a9080c7",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\96\\96a797d194de82efd223da3b67b9f4bf47617a9905108dc3d952f364691cad80"
+        },
+        "compositions/s03-tension.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\62\\62385834a3066d31a78bce86baa8ce6aa615b249ec97c7df7127f2900c112844",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\e3\\e3c338972c4b3dc56ec04e788721b98364eadb39c5c4b9a45b942b8823cb1839"
+        },
+        "compositions/s04-mechanism.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ad\\add3339f13d420c3deebe0f0ca1bc2d8cb94bdb64dd9cffe1dd95f6934c20fd1",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\03\\03414759439935da846128df399beb6fa2894c6b7936ca75f658eca38ff0c287"
+        },
+        "compositions/s05-payoff.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\51\\514c7f70752349c9a520923d93110a87695f072592a2ddf1d03c7adb701192ed",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ab\\abf82500aacfcb03c84d8fd7a4373f9330ee977e3135fdce1c757383dd12a9ce"
+        },
+        "compositions/s06-end.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\bd\\bd17005a106469b385bb8f3d154eb817294ea47d06e1c2e9deb460fa0cdfaa52",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\c5\\c538905b2baaa6665ec6e656042613e884449e4521bca29639bf4198c45ed8b7"
+        },
+        "index.html": {
+          "before": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\28\\28f498285570477bb3392425f23c330ccfd46a374f75912d11bb2fcd93a9d0c1",
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\1f\\1fe1428ed065c10c5e2f6e6197dacda19ae02b78ffdeba0df4648b307506932b"
+        }
+      }
+    },
+    "ed5519fb-049a-4ad1-b5fc-15fe3d37c369": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794764298635,
+      "endedAt": 1794764298648,
+      "files": {
+        "POST.md": {
+          "before": null,
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\ce\\ce4c7379b4d0b0234264d7257b29831c03b00bfd699b4c6206f1a00646cd84b3"
+        },
+        "render-log.txt": {
+          "before": null,
+          "after": "C:\\Users\\ACER\\.cache\\hyperframes\\history\\7bd52af4-b8f8-46da-ad1c-76cf77954a01\\blobs\\8b\\8beb0ebfa566447c79457f926b37b611323684803361fcc0615ba8f29f74b8c7"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": null,
+      "id": "0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3"
+    },
+    "revisions": {},
+    "unversioned": [
+      {
+        "id": "1fe61611-5a14-4dba-a4bf-0a5ea7e02e2b",
+        "scope": "project",
+        "report": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\checks\\1fe61611-5a14-4dba-a4bf-0a5ea7e02e2b.json",
+        "metadata": {
+          "ok": false,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1794764093707,
+        "contentHash": "d9add16c0c3bb5fd26d551eebd889a456a4c0f52486473fa3cc06f001829453c",
+        "revision": null,
+        "inputFingerprint": "c6c85bca5482216bd6f0eb30b2638d4c4be54ecc10b29200b5abb5e3aa2956ef",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "id": "0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3",
+        "scope": "project",
+        "report": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\checks\\0a9fd9dd-4d7c-4b65-8f21-e7f72b7501a3.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 45000,
+            "cache": true,
+            "contrast": true,
+            "craft": true,
+            "strict": false,
+            "snapshots": false,
+            "safeZones": [
+              "tiktok",
+              "reels",
+              "shorts"
+            ],
+            "browserGpuMode": "auto",
+            "includeUnmounted": false
+          }
+        },
+        "createdAt": 1794764169631,
+        "contentHash": "53dd29f3ff81083b44ef6b3804caac03643d8fd1577407a0172f6783182ace4e",
+        "revision": null,
+        "inputFingerprint": "55bfacec276697df1a773b3277fea373ec98d107c8d561cf22da6b510b27232d",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+      "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-7"
+    },
+    "revisions": {
+      "ed5519fb-049a-4ad1-b5fc-15fe3d37c369": [
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-0",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-00-at-0.5s.png",
+          "time": 0.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303409,
+          "contentHash": "934b400522330eb75e4e54b376ca93beb2217b3905450fd4de1dfdbf85e651ec",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-1",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-01-at-4s.png",
+          "time": 4,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "cab4746cb1f70f6a70ff8c5afa2a69a0cffd5119f74b18fbe1aa26023f90a524",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-2",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-02-at-8s.png",
+          "time": 8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "bc6f311660f0aa2631b6793c17cbfbe526bf1d49eba41243e5fba5cbbb63fcb0",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-3",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-03-at-12s.png",
+          "time": 12,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "1f43cff098a42609ae13ed7f450702bfb0ad4eb1f7812856922641abb558113d",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-4",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-04-at-18s.png",
+          "time": 18,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "dad429a9c3ba2a1a9e6ddcf9e14cb7ca7d80583600ef82969521e375b6393372",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-5",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-05-at-26s.png",
+          "time": 26,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "2be01593e4909f9005bdd0a895478f6f9ec16ceaa94340cd4346def4c9bf1cf7",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-6",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-06-at-32s.png",
+          "time": 32,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "bea4dd8a0719faa4a321c8e66bf09369e57f47670ab1f6d56e0920c6c1dd039c",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "41d1e4fa-5851-4548-ade1-e5992c1d5e03-7",
+          "image": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\.hyperframes\\artifacts\\snapshots\\54928484-d133-4b85-938e-dba284aa633a\\frame-07-at-38s.png",
+          "time": 38,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1794764303410,
+          "contentHash": "69b5f59e0a5f384bb9455be5b4313087408e499d63ce5792c96645c65a027c3c",
+          "revision": "ed5519fb-049a-4ad1-b5fc-15fe3d37c369",
+          "inputFingerprint": "2427a1b9ee3e2c50b7def1e1565f25546cce146ffce8d81ca693b33d0cf4d9a9",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "74bf768f-1b6e-4019-b513-2060c23efd64",
+      "completedAt": 1794764272183,
+      "output": "E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\output\\scholargrid-reel.mp4",
+      "status": "completed",
+      "revision": null
+    },
+    "retainedRevisions": []
+  },
+  "pendingArtifactCleanup": []
+}

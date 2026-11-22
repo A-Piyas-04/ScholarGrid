@@ -1,0 +1,500 @@
+[
+  {
+    "id": "w0",
+    "text": "Stop",
+    "start": 0,
+    "end": 0.32
+  },
+  {
+    "id": "w1",
+    "text": "searching",
+    "start": 0.32,
+    "end": 0.8
+  },
+  {
+    "id": "w2",
+    "text": "R",
+    "start": 0.8,
+    "end": 1.04
+  },
+  {
+    "id": "w3",
+    "text": "Ziv",
+    "start": 1.2,
+    "end": 1.68
+  },
+  {
+    "id": "w4",
+    "text": "like",
+    "start": 1.68,
+    "end": 1.84
+  },
+  {
+    "id": "w5",
+    "text": "a",
+    "start": 1.84,
+    "end": 1.92
+  },
+  {
+    "id": "w6",
+    "text": "keyword",
+    "start": 1.92,
+    "end": 2.48
+  },
+  {
+    "id": "w7",
+    "text": "lottery.",
+    "start": 2.48,
+    "end": 3.28
+  },
+  {
+    "id": "w8",
+    "text": "See",
+    "start": 3.28,
+    "end": 3.6
+  },
+  {
+    "id": "w9",
+    "text": "the",
+    "start": 3.76,
+    "end": 3.92
+  },
+  {
+    "id": "w10",
+    "text": "field",
+    "start": 3.92,
+    "end": 4.32
+  },
+  {
+    "id": "w11",
+    "text": "isn't",
+    "start": 4.32,
+    "end": 4.64
+  },
+  {
+    "id": "w12",
+    "text": "a",
+    "start": 4.64,
+    "end": 4.8
+  },
+  {
+    "id": "w13",
+    "text": "feed,",
+    "start": 4.8,
+    "end": 5.52
+  },
+  {
+    "id": "w14",
+    "text": "it's",
+    "start": 5.52,
+    "end": 5.76
+  },
+  {
+    "id": "w15",
+    "text": "a",
+    "start": 5.76,
+    "end": 5.92
+  },
+  {
+    "id": "w16",
+    "text": "landscape.",
+    "start": 5.92,
+    "end": 6.96
+  },
+  {
+    "id": "w17",
+    "text": "Most",
+    "start": 6.96,
+    "end": 7.36
+  },
+  {
+    "id": "w18",
+    "text": "tools",
+    "start": 7.36,
+    "end": 7.84
+  },
+  {
+    "id": "w19",
+    "text": "dump",
+    "start": 7.84,
+    "end": 8.24
+  },
+  {
+    "id": "w20",
+    "text": "ten",
+    "start": 8.24,
+    "end": 8.56
+  },
+  {
+    "id": "w21",
+    "text": "titles",
+    "start": 8.56,
+    "end": 9.04
+  },
+  {
+    "id": "w22",
+    "text": "and",
+    "start": 9.04,
+    "end": 9.2
+  },
+  {
+    "id": "w23",
+    "text": "call",
+    "start": 9.2,
+    "end": 9.52
+  },
+  {
+    "id": "w24",
+    "text": "that",
+    "start": 9.52,
+    "end": 9.76
+  },
+  {
+    "id": "w25",
+    "text": "discovery.",
+    "start": 9.76,
+    "end": 10.72
+  },
+  {
+    "id": "w26",
+    "text": "Scholar",
+    "start": 10.72,
+    "end": 11.36
+  },
+  {
+    "id": "w27",
+    "text": "Grid",
+    "start": 11.36,
+    "end": 11.68
+  },
+  {
+    "id": "w28",
+    "text": "embeds",
+    "start": 11.84,
+    "end": 12.24
+  },
+  {
+    "id": "w29",
+    "text": "recent",
+    "start": 12.4,
+    "end": 12.8
+  },
+  {
+    "id": "w30",
+    "text": "computer",
+    "start": 12.8,
+    "end": 13.28
+  },
+  {
+    "id": "w31",
+    "text": "science",
+    "start": 13.28,
+    "end": 13.68
+  },
+  {
+    "id": "w32",
+    "text": "papers,",
+    "start": 13.68,
+    "end": 14.4
+  },
+  {
+    "id": "w33",
+    "text": "cluster",
+    "start": 14.4,
+    "end": 15.04
+  },
+  {
+    "id": "w34",
+    "text": "the",
+    "start": 15.04,
+    "end": 15.12
+  },
+  {
+    "id": "w35",
+    "text": "terrain,",
+    "start": 15.12,
+    "end": 15.76
+  },
+  {
+    "id": "w36",
+    "text": "and",
+    "start": 15.76,
+    "end": 16
+  },
+  {
+    "id": "w37",
+    "text": "labels",
+    "start": 16,
+    "end": 16.56
+  },
+  {
+    "id": "w38",
+    "text": "every",
+    "start": 16.56,
+    "end": 16.88
+  },
+  {
+    "id": "w39",
+    "text": "region.",
+    "start": 16.88,
+    "end": 17.52
+  },
+  {
+    "id": "w40",
+    "text": "Then",
+    "start": 17.52,
+    "end": 17.84
+  },
+  {
+    "id": "w41",
+    "text": "it",
+    "start": 17.84,
+    "end": 18
+  },
+  {
+    "id": "w42",
+    "text": "shows",
+    "start": 18,
+    "end": 18.32
+  },
+  {
+    "id": "w43",
+    "text": "where",
+    "start": 18.32,
+    "end": 18.64
+  },
+  {
+    "id": "w44",
+    "text": "publishing",
+    "start": 18.64,
+    "end": 19.12
+  },
+  {
+    "id": "w45",
+    "text": "is",
+    "start": 19.12,
+    "end": 19.36
+  },
+  {
+    "id": "w46",
+    "text": "rising",
+    "start": 19.36,
+    "end": 19.84
+  },
+  {
+    "id": "w47",
+    "text": "and",
+    "start": 19.84,
+    "end": 20
+  },
+  {
+    "id": "w48",
+    "text": "where",
+    "start": 20,
+    "end": 20.24
+  },
+  {
+    "id": "w49",
+    "text": "neighborhoods",
+    "start": 20.24,
+    "end": 20.88
+  },
+  {
+    "id": "w50",
+    "text": "go",
+    "start": 20.88,
+    "end": 21.12
+  },
+  {
+    "id": "w51",
+    "text": "sparse",
+    "start": 21.12,
+    "end": 21.68
+  },
+  {
+    "id": "w52",
+    "text": "enough",
+    "start": 21.68,
+    "end": 21.92
+  },
+  {
+    "id": "w53",
+    "text": "to",
+    "start": 21.92,
+    "end": 22.16
+  },
+  {
+    "id": "w54",
+    "text": "investigate.",
+    "start": 22.16,
+    "end": 23.2
+  },
+  {
+    "id": "w55",
+    "text": "Your",
+    "start": 23.2,
+    "end": 23.44
+  },
+  {
+    "id": "w56",
+    "text": "query",
+    "start": 23.44,
+    "end": 24
+  },
+  {
+    "id": "w57",
+    "text": "doesn't",
+    "start": 24,
+    "end": 24.32
+  },
+  {
+    "id": "w58",
+    "text": "return",
+    "start": 24.32,
+    "end": 24.72
+  },
+  {
+    "id": "w59",
+    "text": "a",
+    "start": 24.72,
+    "end": 24.88
+  },
+  {
+    "id": "w60",
+    "text": "list.",
+    "start": 24.88,
+    "end": 25.28
+  },
+  {
+    "id": "w61",
+    "text": "It",
+    "start": 25.44,
+    "end": 25.6
+  },
+  {
+    "id": "w62",
+    "text": "drops",
+    "start": 25.6,
+    "end": 26
+  },
+  {
+    "id": "w63",
+    "text": "you",
+    "start": 26,
+    "end": 26.24
+  },
+  {
+    "id": "w64",
+    "text": "on",
+    "start": 26.24,
+    "end": 26.4
+  },
+  {
+    "id": "w65",
+    "text": "the",
+    "start": 26.4,
+    "end": 26.48
+  },
+  {
+    "id": "w66",
+    "text": "map,",
+    "start": 26.48,
+    "end": 27.12
+  },
+  {
+    "id": "w67",
+    "text": "trends,",
+    "start": 27.12,
+    "end": 28.08
+  },
+  {
+    "id": "w68",
+    "text": "leads,",
+    "start": 28.08,
+    "end": 28.96
+  },
+  {
+    "id": "w69",
+    "text": "evidence",
+    "start": 28.96,
+    "end": 29.52
+  },
+  {
+    "id": "w70",
+    "text": "behind",
+    "start": 29.52,
+    "end": 29.92
+  },
+  {
+    "id": "w71",
+    "text": "every",
+    "start": 29.92,
+    "end": 30.24
+  },
+  {
+    "id": "w72",
+    "text": "signal.",
+    "start": 30.24,
+    "end": 30.96
+  },
+  {
+    "id": "w73",
+    "text": "Stop",
+    "start": 30.96,
+    "end": 31.36
+  },
+  {
+    "id": "w74",
+    "text": "hunting",
+    "start": 31.36,
+    "end": 31.84
+  },
+  {
+    "id": "w75",
+    "text": "keywords.",
+    "start": 31.84,
+    "end": 32.72
+  },
+  {
+    "id": "w76",
+    "text": "Start",
+    "start": 32.72,
+    "end": 33.04
+  },
+  {
+    "id": "w77",
+    "text": "reading",
+    "start": 33.04,
+    "end": 33.44
+  },
+  {
+    "id": "w78",
+    "text": "the",
+    "start": 33.44,
+    "end": 33.6
+  },
+  {
+    "id": "w79",
+    "text": "research",
+    "start": 33.6,
+    "end": 34.16
+  },
+  {
+    "id": "w80",
+    "text": "landscape.",
+    "start": 34.16,
+    "end": 35.04
+  },
+  {
+    "id": "w81",
+    "text": "Scholar",
+    "start": 35.04,
+    "end": 35.52
+  },
+  {
+    "id": "w82",
+    "text": "Grid.",
+    "start": 35.52,
+    "end": 35.92
+  }
+]

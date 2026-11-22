@@ -1,0 +1,9 @@
+Stop searching arXiv like a keyword lottery.
+See — the field isn't a feed. It's a landscape.
+Most tools dump ten titles and call that discovery.
+ScholarGrid embeds recent computer-science papers, clusters the terrain, and labels every region.
+Then it shows where publishing is rising — and where neighbourhoods go sparse enough to investigate.
+Your query doesn't return a list. It drops you on the map.
+Trends. Leads. Evidence behind every signal.
+Stop hunting keywords. Start reading the research landscape.
+ScholarGrid.

@@ -1,0 +1,109 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background: #071018;
+      font-family: Outfit, sans-serif;
+      color: #f4f7fa;
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(255, 107, 74, 0.14), transparent 55%), #071018;
+    }
+    .list {
+      position: absolute;
+      left: 96px;
+      right: 96px;
+      top: 400px;
+      font-family: "Space Mono", monospace;
+    }
+    .row {
+      display: flex;
+      gap: 18px;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(244, 247, 250, 0.1);
+      font-size: 26px;
+      color: rgba(244, 247, 250, 0.72);
+      will-change: transform, opacity, filter;
+    }
+    .row .n {
+      color: #ff6b4a;
+      width: 42px;
+      flex: none;
+    }
+    .headline {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 260px;
+      text-align: center;
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .headline .x {
+      color: #ff6b4a;
+    }
+    .stamp {
+      position: absolute;
+      left: 50%;
+      top: 1120px;
+      transform: translateX(-50%) rotate(-8deg);
+      border: 4px solid #ff6b4a;
+      color: #ff6b4a;
+      padding: 18px 28px;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  </style>
+  <div id="root" data-composition-id="s03-tension" data-width="1080" data-height="1920">
+    <div class="bg"></div>
+    <div class="headline" id="ten-h">10 titles <span class="x">≠</span> discovery</div>
+    <div class="list" id="ten-list">
+      <div class="row" id="r1"><span class="n">01</span> Attention Is All You Need</div>
+      <div class="row" id="r2"><span class="n">02</span> BERT: Pre-training of Deep…</div>
+      <div class="row" id="r3"><span class="n">03</span> Denoising Diffusion Models</div>
+      <div class="row" id="r4"><span class="n">04</span> Retrieval-Augmented Gen…</div>
+      <div class="row" id="r5"><span class="n">05</span> LoRA: Low-Rank Adaptation</div>
+      <div class="row" id="r6"><span class="n">06</span> Graph Neural Networks…</div>
+      <div class="row" id="r7"><span class="n">07</span> Contrastive Language-Image</div>
+      <div class="row" id="r8"><span class="n">08</span> Scaling Laws for Neural…</div>
+      <div class="row" id="r9"><span class="n">09</span> Mixture-of-Experts Routing</div>
+      <div class="row" id="r10"><span class="n">10</span> Toolformer: Language Models</div>
+    </div>
+    <div class="stamp" id="ten-stamp">Not a map</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#ten-h", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.05);
+
+    for (let i = 1; i <= 10; i++) {
+      tl.fromTo(
+        "#r" + i,
+        { opacity: 0, x: 80, filter: "blur(6px)" },
+        { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.18, ease: "power3.out" },
+        0.15 + i * 0.09,
+      );
+    }
+
+    tl.fromTo(
+      "#ten-stamp",
+      { opacity: 0, scale: 1.4, filter: "blur(8px)" },
+      { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.28, ease: "back.out(1.6)" },
+      1.4,
+    );
+
+    tl.to("#ten-list", { y: 40, filter: "blur(10px)", opacity: 0.25, duration: 0.35, ease: "power2.in" }, 3.4);
+    tl.to(["#ten-h", "#ten-stamp"], { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in" }, 3.65);
+
+    window.__timelines["s03-tension"] = tl;
+  </script>
+</template>

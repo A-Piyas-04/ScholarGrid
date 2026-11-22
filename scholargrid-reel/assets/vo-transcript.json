@@ -1,0 +1,40 @@
+﻿node.exe : {"type":"progress","phase":"transcription","model":"parakeet-tdt-0.6b-v3","status":"started","durationSecond
+s":36.1564375}
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ({"type":"progre...ds":36.1564375}:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+{"type":"words","model":"parakeet-tdt-0.6b-v3","words":[{"text":"Stop","start":0,"end":0.32},{"text":"searching","start
+":0.32,"end":0.8},{"text":"R","start":0.8,"end":1.04},{"text":"Ziv","start":1.2,"end":1.68},{"text":"like","start":1.68
+,"end":1.84},{"text":"a","start":1.84,"end":1.92},{"text":"keyword","start":1.92,"end":2.48},{"text":"lottery.","start"
+:2.48,"end":3.28},{"text":"See","start":3.28,"end":3.6},{"text":"the","start":3.76,"end":3.92},{"text":"field","start":
+3.92,"end":4.32},{"text":"isn't","start":4.32,"end":4.64},{"text":"a","start":4.64,"end":4.8},{"text":"feed,","start":4
+.8,"end":5.52},{"text":"it's","start":5.52,"end":5.76},{"text":"a","start":5.76,"end":5.92},{"text":"landscape.","start
+":5.92,"end":6.96},{"text":"Most","start":6.96,"end":7.36},{"text":"tools","start":7.36,"end":7.84},{"text":"dump","sta
+rt":7.84,"end":8.24},{"text":"ten","start":8.24,"end":8.56},{"text":"titles","start":8.56,"end":9.04},{"text":"and","st
+art":9.04,"end":9.2},{"text":"call","start":9.2,"end":9.52},{"text":"that","start":9.52,"end":9.76},{"text":"discovery.
+","start":9.76,"end":10.72},{"text":"Scholar","start":10.72,"end":11.36},{"text":"Grid","start":11.36,"end":11.68},{"te
+xt":"embeds","start":11.84,"end":12.24},{"text":"recent","start":12.4,"end":12.8},{"text":"computer","start":12.8,"end"
+:13.28},{"text":"science","start":13.28,"end":13.68},{"text":"papers,","start":13.68,"end":14.4},{"text":"cluster","sta
+rt":14.4,"end":15.04},{"text":"the","start":15.04,"end":15.12},{"text":"terrain,","start":15.12,"end":15.76},{"text":"a
+nd","start":15.76,"end":16},{"text":"labels","start":16,"end":16.56},{"text":"every","start":16.56,"end":16.88},{"text"
+:"region.","start":16.88,"end":17.52},{"text":"Then","start":17.52,"end":17.84},{"text":"it","start":17.84,"end":18},{"
+text":"shows","start":18,"end":18.32},{"text":"where","start":18.32,"end":18.64},{"text":"publishing","start":18.64,"en
+d":19.12},{"text":"is","start":19.12,"end":19.36},{"text":"rising","start":19.36,"end":19.84},{"text":"and","start":19.
+84,"end":20},{"text":"where","start":20,"end":20.24},{"text":"neighborhoods","start":20.24,"end":20.88},{"text":"go","s
+tart":20.88,"end":21.12},{"text":"sparse","start":21.12,"end":21.68},{"text":"enough","start":21.68,"end":21.92},{"text
+":"to","start":21.92,"end":22.16},{"text":"investigate.","start":22.16,"end":23.2},{"text":"Your","start":23.2,"end":23
+.44},{"text":"query","start":23.44,"end":24},{"text":"doesn't","start":24,"end":24.32},{"text":"return","start":24.32,"
+end":24.72},{"text":"a","start":24.72,"end":24.88},{"text":"list.","start":24.88,"end":25.28},{"text":"It","start":25.4
+4,"end":25.6},{"text":"drops","start":25.6,"end":26},{"text":"you","start":26,"end":26.24},{"text":"on","start":26.24,"
+end":26.4},{"text":"the","start":26.4,"end":26.48},{"text":"map,","start":26.48,"end":27.12},{"text":"trends,","start":
+27.12,"end":28.08},{"text":"leads,","start":28.08,"end":28.96},{"text":"evidence","start":28.96,"end":29.52},{"text":"b
+ehind","start":29.52,"end":29.92},{"text":"every","start":29.92,"end":30.24},{"text":"signal.","start":30.24,"end":30.9
+6},{"text":"Stop","start":30.96,"end":31.36},{"text":"hunting","start":31.36,"end":31.84},{"text":"keywords.","start":3
+1.84,"end":32.72},{"text":"Start","start":32.72,"end":33.04},{"text":"reading","start":33.04,"end":33.44},{"text":"the"
+,"start":33.44,"end":33.6},{"text":"research","start":33.6,"end":34.16},{"text":"landscape.","start":34.16,"end":35.04}
+,{"text":"Scholar","start":35.04,"end":35.52},{"text":"Grid.","start":35.52,"end":35.92}],"through":36.154}
+{"type":"progress","phase":"transcription","model":"parakeet-tdt-0.6b-v3","status":"completed"}
+{"ok":true,"engine":"parakeet","model":"parakeet-tdt-0.6b-v3","detectedLanguage":null,"wordCount":83,"durationSeconds":35.92,"speechOnsetSeconds":null,"transcriptPath":"E:\\Projects\\My Apps\\ScholarGrid\\scholargrid-reel\\assets\\transcript.json"}
