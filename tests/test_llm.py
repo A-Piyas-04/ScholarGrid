@@ -248,7 +248,8 @@ def test_estimate_lines(tmp_path):
 
     cfg = make_config(tmp_path)
     lines = estimate_lines(cfg, "extract", 600)
-    assert lines[0].startswith("extract: 600 items, pack_size=4 -> 150 requests")
+    pack = int(cfg["llm"]["tasks"]["extract"]["pack_size"])      # tunable in config; don't hard-code it
+    assert lines[0].startswith(f"extract: 600 items, pack_size={pack} -> {-(-600 // pack)} requests")
     assert any("days" in ln for ln in lines)
 
 

@@ -14,7 +14,11 @@ pydantic==2.13.5
 pyarrow==25.0.1
 joblib==1.6.0
 
-# App
+# Web API (FastAPI backend for the Next.js app in web/)
+fastapi==0.165.0
+uvicorn==0.54.0
+
+# Legacy Streamlit app
 plotly==6.1.2
 streamlit==1.54.0
 pillow==12.3.0  # transitive via streamlit; pinned for security fixes

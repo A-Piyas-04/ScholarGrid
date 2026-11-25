@@ -34,14 +34,41 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install (core + app, no torch)
-        run: pip install -e ".[app,dev,llm,fulltext,db]" duckdb faiss-cpu
-      - name: Unit, integration and app smoke tests
+        run: pip install -e ".[app,api,dev,llm,fulltext,db]" duckdb faiss-cpu
+      - name: Unit, integration, API and app smoke tests
         run: pytest --cov --cov-report=term --cov-report=xml
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage
           path: coverage.xml
+
+  web:
+    # Next.js frontend: types, the generated API contract, and a production build.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e "..[api,llm,db]"
+      - name: API contract is up to date (openapi.json -> src/lib/api-types.ts)
+        run: |
+          python -m scholargrid.api --openapi openapi.json
+          npm ci
+          npm run gen:api
+          git diff --exit-code -- openapi.json src/lib/api-types.ts
+      - run: npm run typecheck
+      - run: npm run build
 
   postgres:
     # Projects database on real Postgres (the laptop only uses SQLite).

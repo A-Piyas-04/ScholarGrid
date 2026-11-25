@@ -1,184 +1,128 @@
-# 🔭 ScholarGrid — Research Landscape Explorer
+# ScholarGrid
 
-> Turn arXiv paper discovery from keyword hunting into **landscape understanding**.
-> Search → landscape → trends → evidence → investigation leads.
+**From a vague research interest to a defensible research question, with the papers behind every claim.**
 
-ScholarGrid transforms a corpus of recent arXiv **computer-science** papers into
-an interactive semantic research landscape. Users can understand major research
-areas, search semantically, observe publication-growth patterns, surface sparse
-("investigation lead") neighbourhoods, and inspect the papers behind every
-signal.
+ScholarGrid helps beginner researchers (final-year undergraduates, new MSc and PhD students) start research in
+computer science:
 
-It is an **exploration and decision-support tool** — *not* an automatic
-research-gap or thesis-topic generator. See `[Docs/ScholarGrid_SRS.md](Docs/ScholarGrid_SRS.md)`
-for the full requirements this implements.
+1. **Map a topic.** Describe an interest; see its sub-problems explained in plain language.
+2. **Read first.** An ordered path: surveys, the foundations everyone cites, key recent work, the frontier.
+3. **Find open problems.** Problems authors say are unsolved, untried method/problem pairs, narrow evaluations and
+   conflicting results. Each comes with quoted evidence, a novelty check against recent papers, and the reasons it
+   might *not* be a gap.
+4. **Plan the first project.** Research question, hypotheses, baselines and datasets from the closest papers, a
+   week-by-week timeline, risks, and an email to a supervisor.
+5. **Keep it.** Projects hold saved papers (with reading status, tags, notes), open problems, plans and notes.
 
-This repository contains the **version 2 pipeline** and a guided research UI.
-The original SRS records the analytical scope; the [UX review](Docs/ux-review.md)
-documents the current interface and remaining readiness limits.
-
----
-
-
+It also offers semantic paper search (collection + live arXiv, OpenAlex and Semantic Scholar), a cited research-brief
+assistant, a map of the whole collection, research areas and trends, and a page for judging search quality.
 
 ## Architecture
 
-The expensive analysis runs **offline** and writes precomputed artifacts; the
-deployed app stays lightweight, doing only live query embedding + nearest-
-neighbour retrieval (NFR-01, Deployment Requirements).
-
 ```
-arXiv metadata
-   → clean/filter (cs.*, window, dedup)        FR-01
-   → title+abstract embeddings                 FR-02
-   → UMAP reduce → HDBSCAN clustering          FR-03
-   → c-TF-IDF labels + representative papers    FR-04
-   → separate 2D projection (landscape)        FR-05
-   → normalised publication growth             FR-07
-   → sparse-neighbourhood leads                FR-08
-   → validation & robustness                   FR-15..18
-   → exported artifacts  ──►  Streamlit app     FR-05/06/10/12/13/14
+offline (your computer or Kaggle GPU)              online (your computer)
+┌────────────────────────────────────┐   ┌───────────────────────────────────────────────────┐
+│ scholargrid.pipeline               │   │ web/  Next.js 15 · TypeScript · Tailwind 4         │
+│ kaggle/ notebooks 00–09            │   │        │ /api/* (proxied)                           │
+│        ▼                           │   │        ▼                                            │
+│ versioned release bundle           │──►│ scholargrid/api  FastAPI: search, topics, open     │
+│ data/releases/<id>/ (+ manifest,   │   │   problems, plans, projects, map, trends, assistant│
+│ checksums, validation report)      │   │        │                                            │
+└────────────────────────────────────┘   │ SQLite data/app.db (projects) · free-tier LLMs      │
+                                         └───────────────────────────────────────────────────┘
 ```
 
+* **`scholargrid/`**: the research library (ingest, enrichment, embeddings, clustering, hybrid search, topic
+  workspaces, reading paths, gap engine, plan generator, LLM router, persistence). Unchanged by the web transition.
+* **`scholargrid/api/`**: one FastAPI process that loads the current release once and exposes typed endpoints. Long
+  tasks (topic maps, open problems, plans, briefs) run as background jobs with progress.
+* **`scholargrid/assistant/`**: a controlled research-brief orchestrator (fixed tools, step budget, verified citations).
+* **`web/`**: the user interface. Types are generated from the API's OpenAPI schema.
+* **`kaggle/`**: GPU experiments (embedding models, hybrid retrieval, clustering, enrichment, trends) and a release
+  builder whose output you import with one command. See [`kaggle/README.md`](kaggle/README.md).
+* **`app/`**: the previous Streamlit interface, kept as legacy until the web app is validated.
 
+Plan, decisions and status: [`Docs/web-app/TRANSITION_PLAN.md`](Docs/web-app/TRANSITION_PLAN.md).
 
-### Backends (graceful degradation)
+## Run it locally
 
-The pipeline uses the SRS baseline methods when their libraries are installed,
-and reproducible scikit-learn fallbacks otherwise. The resolved choice is
-recorded in `data/processed/meta.json` and shown in the app's Methodology tab.
+Requirements: Python 3.11+ and Node.js 20+ (22 recommended).
 
-
-| Stage                | Preferred (SRS)                          | Fallback                                   |
-| -------------------- | ---------------------------------------- | ------------------------------------------ |
-| Embeddings (FR-02)   | `sentence-transformers` all-MiniLM-L6-v2 | TF-IDF → TruncatedSVD → L2                 |
-| Reduction (FR-03/05) | UMAP                                     | PCA                                        |
-| Clustering (FR-03)   | HDBSCAN                                  | DBSCAN (k-distance `eps`, noise preserved) |
-
-
----
-
-
-
-## Repository layout (NFR-04)
-
+```powershell
+# Windows: first run installs everything, then opens two windows (API + web)
+./scripts/dev.ps1 -Install
+# later runs
+./scripts/dev.ps1
 ```
-configs/      config.yaml (all parameters & seeds) + validation_queries.json
-scholargrid/  reusable pipeline library (one module per stage)
-pipeline/     run_pipeline.py — offline orchestrator
-app/          streamlit_app.py — the web application
-notebooks/    interactive exploration (see notebooks/README.md)
-data/raw/     harvested corpus (gitignored)
-data/processed/ precomputed artifacts consumed by the app (gitignored)
-reports/      generated validation report (md + json)
-Docs/         proposal, SRS, implementation plans
-```
-
----
-
-
-
-## Quickstart
 
 ```bash
-# 1. Install (core stack; add the optional baseline backends if you want them)
-python -m venv .venv && source .venv/bin/activate
-# Windows PowerShell: python -m venv .venv; .venv\Scripts\Activate.ps1
+# macOS / Linux / Git Bash
+./scripts/dev.sh --install
+```
+
+Or by hand:
+
+```bash
+python -m venv .venv && .venv/Scripts/activate        # Windows; use .venv/bin/activate elsewhere
 pip install -r requirements.txt
-# optional SRS baseline methods:
-# pip install sentence-transformers umap-learn hdbscan
-
-# 2. Build the artifacts (harvests arXiv by default; see configs/config.yaml)
-python pipeline/run_pipeline.py          # or skip and click "Load demo data" in the app
-
-# 3. Launch the app
-streamlit run app/streamlit_app.py       # app.py also works (Hugging Face Spaces entry)
+python -m scholargrid.api                              # http://127.0.0.1:8000  (API docs at /docs)
+cd web && npm install && npm run dev                   # http://localhost:3000
 ```
 
-To put the app online for the public, follow [Docs/deployment.md](Docs/deployment.md).
+The API loads the served release on start (about 40 s for 48k papers with the embedding model); the web app shows a
+loading screen meanwhile. No release yet? Build a small one with `python pipeline/run_pipeline.py`, or use the
+synthetic demo config: `python pipeline/run_pipeline.py --config configs/ci.yaml`.
 
-New here? See `[Docs/next-instructions.md](Docs/next-instructions.md)` for step-by-step
-setup and deployment, and `[Docs/README.md](Docs/README.md)`
-for the technical reference.
+### AI features and keys
 
-### Choosing a data source
+AI features use free tiers only (Gemini, optionally Groq / OpenRouter). Put keys in `.env` (see `.env.example`). Without
+keys every feature still works with simpler methods: keyword labels, template open-problem cards, template plans and
+extractive briefs. The app says which one you are seeing. You can also paste your own Gemini key in **Settings**.
 
-Edit `data.source` in `[configs/config.yaml](configs/config.yaml)`:
-
-- `arxiv_api` *(dev default)* — live harvest from the arXiv search API.
-- `kaggle` — streams a downloaded `arxiv-metadata-oai-snapshot.json`
-(`data.kaggle_json`) into the Parquet/DuckDB paper store.
-- `oai_pmh` — incremental, resumable harvest from arXiv OAI-PMH (weekly refresh).
-- `synthetic` — deterministic offline demo corpus (no network), for CI and demos.
-
-Falling back to `synthetic` when a harvest fails is allowed only when
-`data.allow_synthetic_fallback: true` (dev). Production configs refuse it, and
-the app shows a banner whenever synthetic data is being served.
-
-### Configs and corpus size
-
-
-| Config                    | Purpose                                                                       |
-| ------------------------- | ----------------------------------------------------------------------------- |
-| `configs/config.yaml`     | Local development (small sample, permissive gates)                            |
-| `configs/production.yaml` | Production build from the Kaggle snapshot (`profile: standard`, strict gates) |
-| `configs/refresh.yaml`    | Weekly OAI-PMH refresh on top of production                                   |
-| `configs/ci.yaml`         | Offline nightly regression run                                                |
-
-
-`data.profile` picks the corpus size: `dev` (5k), `standard` (50k), `full`
-(no cap) or `custom` (`max_papers`). Secrets (`OPENALEX_MAILTO`, `SENTRY_DSN`,
-`S2_API_KEY`) are read from environment variables only.
-
-### Pipeline, releases and operations
+## Data releases
 
 ```bash
-python pipeline/run_pipeline.py --config configs/production.yaml   # full build + publish
-python pipeline/run_pipeline.py --from-stage analyze               # rerun from a stage
-python pipeline/run_pipeline.py --background   # detached; progress in data/grow_status.json, log in data/grow.log
-python -m scholargrid.release list | rollback <release-id>
+python -m scholargrid.release list                       # releases, * marks the served one
+python -m scholargrid.release rollback <id>              # serve an older release
+python -m scholargrid.release verify <dir|zip>           # check an external bundle against the app's contract
+python -m scholargrid.release import <dir|zip> --activate  # add a bundle built on Kaggle and serve it
 ```
 
-Each run writes a staging bundle, validates it, and publishes a versioned
-release (`data/releases/<id>/` with `manifest.json` and `changelog.json`)
-only if the required validation gates pass. See
-`[Docs/runbook.md](Docs/runbook.md)` for rebuilds, rollbacks, refresh failures
-and secrets.
+Releases are immutable folders with a manifest, checksums and a validation report. **Settings → Data releases** in
+the app lists them and switches between them.
 
-### Development
+## Pipeline
 
 ```bash
-pip install -e ".[ml,app,dev]"
-pytest                 # unit, integration and Streamlit smoke tests
+python pipeline/run_pipeline.py                       # configs/config.yaml (development)
+python pipeline/run_pipeline.py --config configs/production.yaml
+python pipeline/run_pipeline.py --from-stage analyze  # rerun from a stage
+```
+
+Stages: ingest → enrich (OpenAlex) → fulltext → extract (LLM) → embed → analyze (UMAP, HDBSCAN, labels, growth,
+graph) → foundations → gaps → validate → publish. All parameters live in `configs/*.yaml` and are validated on load.
+
+## Development
+
+```bash
+pip install -e ".[ml,app,api,dev,llm,fulltext,db]"
+pytest                                  # library, API (tests/test_api.py), release import, legacy app
 ruff check . && mypy
-pre-commit install
-docker build -t scholargrid .   # production image (non-root, health-checked)
+cd web && npm run typecheck && npm run build
+python -m scholargrid.api --openapi web/openapi.json && (cd web && npm run gen:api)   # after API changes
 ```
 
----
+## Measuring quality
 
+Search quality is judged with real graded labels: open **Explore → Judge search results** (`/evaluate`), grade
+pooled results for benchmark queries, and the labels go to `configs/search_judgments.json`. The validation stage and
+the Kaggle notebooks use them; without them the reported search score is heuristic and the app says so.
 
+## Honest limits
 
-## The application (SRS §16.1)
+The collection is a stratified sample of arXiv computer science. An open-problem card is a lead to discuss with a
+supervisor, not proof that nobody has solved it; sparse coverage or embedding similarity never establishes novelty.
+AI-written text links to its sources; read them before relying on a claim.
 
-The application follows **Find papers - understand the area - build a reading list**.
-
-- **Find papers:** describe an interest, use example searches, and inspect ranked results.
-- **Quick tour:** four short steps, with Back, Skip, and replay on the home page.
-- **Workspace:** browse readable area cards, then select papers in a two-column reading view. On phones, switch between the list and details. Selection changes only on click.
-- **Related papers:** follow connections for one selected paper, without a full-corpus network.
-- **Reading list:** save search results for the current session and export CSV or BibTeX.
-- **More:** area summaries, trends, investigation leads, methodology, and dataset provenance.
-- **Trust:** original arXiv links, coverage disclosures, demo/degraded-search notices, and existing reliability gates.
-
-See the [documentation guide](Docs/README.md) and [UX review](Docs/ux-review.md) for current behavior, historical-document corrections, and remaining limits. Session data is not durable storage. This local UI redesign does not establish production launch readiness.
-
----
-
-## Changelog
-
-- **Research-starter journey (upgrade plans 01–05):** the app now opens on **Start** (`/start`):
-  describe a topic, see its sub-topics (**Topic**, `/topic`) and an ordered reading path
-  (**Read first**, `/read-first`). The former home page moved from `/home` to `/search`
-  ("Search papers"); Map, All areas, Trends, Reading list, Leads and About are under **More**.
-
+Paper metadata comes from arXiv, OpenAlex (CC0) and Semantic Scholar. Thank you to arXiv for use of its open access
+interoperability. Abstracts remain under each paper's licence.

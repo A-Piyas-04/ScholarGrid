@@ -1,0 +1,541 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import Graph from "graphology";
+import Sigma from "sigma";
+import { createNodeBorderProgram } from "@sigma/node-border";
+import { createNodeCompoundProgram } from "sigma/rendering";
+import SphereNodeProgram from "./SphereNode";
+import type { Area, Paper, Payload, Scope } from "./types";
+import { fmtInt, shortAuthors } from "./util";
+
+export interface CameraCmd {
+  kind: "zoomIn" | "zoomOut" | "fit";
+  n: number;
+}
+
+interface Props {
+  data: Payload;
+  colors: Map<number, string>;
+  scope: Scope;
+  searchNonce: number; // identifies a particular search result set
+  searchItems: number[]; // paper indices for scope "search"
+  selected: number | null;
+  focusNonce: number; // bump to re-centre the camera on `selected`
+  cameraCmd: CameraCmd | null;
+  reducedMotion: boolean;
+  onSelectPaper: (i: number) => void;
+  onFocusArea: (id: number) => void;
+  onClearSelection: () => void;
+}
+
+const INK = "#13202c";
+const DIM_NODE = "#e4e8ef";
+const DIM_LABEL = "#aeb5c2";
+const EDGE_FAINT = "#ccd4e2";
+const EDGE_FOCUS = "#1f4fa8";
+const NOISE = "#c3c9d4";
+const NODE_STROKE = "#ffffff";
+const LABEL_INK = "#13202c";
+const ACCENT = "#1f4fa8";
+const HOVER_RING = "#1f4fa8";
+// next/font hashes family names, so read the resolved UI font from the page.
+const FONT = typeof document !== "undefined" ? getComputedStyle(document.body).fontFamily : "system-ui, sans-serif";
+const noop = () => undefined;
+
+/**
+ * Compound node program: a sphere-shaded fill drawn first, then a border pass
+ * on top whose centre is transparent — so the shaded sphere shows through while
+ * the border still provides the white separating rim and the selection/hover
+ * halo (the `ring` / `ringColor` attributes).
+ */
+const BorderRing = createNodeBorderProgram({
+  borders: [
+    // Outer halo for selection/hover (0 unless a node sets `ring`).
+    { size: { attribute: "ring", defaultValue: 0, mode: "pixels" }, color: { attribute: "ringColor" } },
+    // Constant white rim that separates overlapping nodes.
+    { size: { value: 1.6, mode: "pixels" }, color: { value: NODE_STROKE } },
+    // Transparent centre lets the sphere fill underneath show.
+    { size: { fill: true }, color: { transparent: true } },
+  ],
+  drawHover: noop,
+});
+const NodeSphereProgram = createNodeCompoundProgram([SphereNodeProgram, BorderRing]);
+
+/**
+ * Label renderer with a soft rounded "pill" behind the text, so titles stay
+ * legible over a dense field of overlapping nodes instead of colliding into an
+ * unreadable pile of bare glyphs.
+ */
+function drawNodeLabel(
+  context: CanvasRenderingContext2D,
+  data: { x: number; y: number; size: number; label: string | null; color: string },
+  settings: { labelSize: number; labelFont: string; labelWeight: string; labelColor: { color?: string } },
+): void {
+  if (!data.label) return;
+  const size = settings.labelSize;
+  context.font = `${settings.labelWeight} ${size}px ${settings.labelFont}`;
+  const text = data.label.length > 64 ? data.label.slice(0, 63) + "…" : data.label;
+  const w = context.measureText(text).width;
+  const x = data.x + data.size + 7;
+  const y = data.y;
+  const padX = 7;
+  const h = size + 9;
+  const r = h / 2;
+  const bx = x - padX;
+  const bw = w + padX * 2;
+  const by = y - h / 2;
+
+  context.beginPath();
+  context.moveTo(bx + r, by);
+  context.arcTo(bx + bw, by, bx + bw, by + h, r);
+  context.arcTo(bx + bw, by + h, bx, by + h, r);
+  context.arcTo(bx, by + h, bx, by, r);
+  context.arcTo(bx, by, bx + bw, by, r);
+  context.closePath();
+  context.fillStyle = "rgba(255, 255, 255, 0.92)";
+  context.fill();
+  context.lineWidth = 1;
+  context.strokeStyle = "rgba(22, 26, 34, 0.10)";
+  context.stroke();
+
+  context.fillStyle = settings.labelColor.color || LABEL_INK;
+  context.textBaseline = "middle";
+  context.fillText(text, x, y);
+}
+
+type Scene =
+  | { kind: "areas"; key: string; areas: Area[]; edges: [number, number, number][] }
+  | { kind: "papers"; key: string; ids: number[]; edges: [number, number, number][]; root: number | null };
+
+/** Deterministic description of what the map should draw for a given scope. */
+function buildScene(data: Payload, scope: Scope, searchNonce: number, searchItems: number[]): Scene {
+  if (scope.kind === "overview") {
+    const areas = data.areas.filter((a) => (a.rc ?? 0) > 0 && a.x != null && a.y != null);
+    const present = new Set(areas.map((a) => a.id));
+    const edges = data.areaEdges.filter(([a, b]) => present.has(a) && present.has(b));
+    return { kind: "areas", key: "overview", areas, edges };
+  }
+  if (scope.kind === "area") {
+    const ids = data.papers
+      .filter((p) => p.c === scope.areaId)
+      .sort((a, b) => b.ci - a.ci || b.d.localeCompare(a.d))
+      .slice(0, data.maxAreaPapers)
+      .map((p) => p.i);
+    return papersScene(`area:${scope.areaId}`, data, ids, null);
+  }
+  if (scope.kind === "search") {
+    const ids = searchItems.slice(0, data.maxAreaPapers);
+    return papersScene(`search:${searchNonce}`, data, ids, null);
+  }
+  // paper neighbourhood, breadth-first up to `depth`
+  const seen = new Set<number>([scope.root]);
+  let frontier = [scope.root];
+  for (let d = 0; d < scope.depth && seen.size < data.maxAreaPapers; d++) {
+    const next: number[] = [];
+    for (const i of frontier) {
+      for (const [j] of data.neighbors[String(i)] ?? []) {
+        if (!seen.has(j) && seen.size < data.maxAreaPapers) {
+          seen.add(j);
+          next.push(j);
+        }
+      }
+    }
+    frontier = next;
+  }
+  return papersScene(`paper:${scope.root}:${scope.depth}`, data, [...seen], scope.root);
+}
+
+function papersScene(key: string, data: Payload, ids: number[], root: number | null): Scene {
+  const set = new Set(ids);
+  const edges: [number, number, number][] = [];
+  const seenPair = new Set<string>();
+  const push = (a: number, b: number, w: number) => {
+    if (a === b || !set.has(a) || !set.has(b)) return;
+    const pk = a < b ? `${a}-${b}` : `${b}-${a}`;
+    if (seenPair.has(pk)) return;
+    seenPair.add(pk);
+    edges.push([a, b, w]);
+  };
+  for (const [a, b, w] of data.edges) push(a, b, w);
+  // Guarantee a selected paper's own links show even if the global edge list
+  // (symmetric kNN) happens not to include every direction.
+  if (root != null) for (const [j, s] of data.neighbors[String(root)] ?? []) push(root, j, s);
+  return { kind: "papers", key, ids, edges, root };
+}
+
+export default function MapView(props: Props) {
+  const { data, colors } = props;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
+  const sigmaRef = useRef<Sigma | null>(null);
+  const graphRef = useRef<Graph | null>(null);
+  const cbs = useRef(props);
+  cbs.current = props;
+  const [failed, setFailed] = useState(false);
+
+  const scene = useMemo(
+    () => buildScene(data, props.scope, props.searchNonce, props.searchItems),
+    [data, props.scope, props.searchNonce, props.searchItems],
+  );
+
+  // Mutable interaction state the reducers read, so hover/selection never
+  // force a full React re-render of the renderer.
+  const st = useRef<{
+    selected: number | null;
+    neighbors: Set<string>;
+    hovered: string | null;
+    hoverNeighbors: Set<string>;
+    scene: Scene;
+  }>({
+    selected: null,
+    neighbors: new Set(),
+    hovered: null,
+    hoverNeighbors: new Set(),
+    scene,
+  });
+  st.current.scene = scene;
+
+  // ---- create the renderer once, for the life of the component ----------
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const g = new Graph({ type: "undirected", multi: false });
+    let renderer: Sigma;
+    try {
+      renderer = new Sigma(g, container, {
+        allowInvalidContainer: true,
+        defaultNodeType: "sphere",
+        nodeProgramClasses: { sphere: NodeSphereProgram },
+        defaultDrawNodeLabel: drawNodeLabel,
+        defaultDrawNodeHover: noop,
+        renderEdgeLabels: false,
+        labelFont: FONT,
+        labelSize: 12.5,
+        labelWeight: "600",
+        labelColor: { color: LABEL_INK },
+        // Fewer, better-spaced labels: only prominent nodes are titled, and the
+        // collision grid is coarse enough that pills rarely overlap.
+        labelDensity: 0.5,
+        labelGridCellSize: 150,
+        labelRenderedSizeThreshold: 9,
+        zIndex: true,
+        minCameraRatio: 0.05,
+        maxCameraRatio: 3,
+        stagePadding: 70,
+        nodeReducer: (node, attrs) => {
+          const s = st.current;
+          const res: Record<string, unknown> = { ...attrs };
+          const baseSize = attrs.size as number;
+          const hov = s.hovered;
+          const isHovered = hov === node;
+          const isHoverNeighbor = hov !== null && s.hoverNeighbors.has(node);
+
+          // ---- Research-area overview: light collision-aware labels, with a
+          // crisp hover lift so the pointed-at area pops. ----
+          if (s.scene.kind === "areas") {
+            if (isHovered) {
+              res.ring = 3.5;
+              res.ringColor = HOVER_RING;
+              res.size = baseSize + 3;
+              res.forceLabel = true;
+              res.zIndex = 5;
+            } else if (hov !== null && !isHoverNeighbor) {
+              res.zIndex = 0;
+            }
+            return res;
+          }
+
+          // ---- Papers: selection focus first, hover spotlight layered on. ----
+          const sel = s.selected !== null ? String(s.selected) : null;
+          if (sel !== null) {
+            if (node === sel) {
+              res.ring = 4;
+              res.ringColor = ACCENT;
+              res.size = baseSize + 2.5;
+              res.forceLabel = true;
+              res.zIndex = 3;
+            } else if (s.neighbors.has(node)) {
+              res.forceLabel = true;
+              res.zIndex = 2;
+            } else {
+              res.color = DIM_NODE;
+              res.labelColor = DIM_LABEL;
+              res.label = "";
+              res.zIndex = 0;
+            }
+          }
+
+          if (hov !== null) {
+            if (isHovered) {
+              // Restore full presence even if selection had dimmed it, then lift.
+              res.color = attrs.color;
+              res.label = attrs.label;
+              res.labelColor = LABEL_INK;
+              res.ring = Math.max((res.ring as number) || 0, 3.5);
+              res.ringColor = HOVER_RING;
+              res.size = baseSize + 3;
+              res.forceLabel = true;
+              res.zIndex = 6;
+            } else if (isHoverNeighbor) {
+              // Direct connections of the hovered node stay bright and titled.
+              res.color = attrs.color;
+              res.labelColor = LABEL_INK;
+              res.label = attrs.label;
+              res.forceLabel = true;
+              res.zIndex = Math.max((res.zIndex as number) || 0, 4);
+            } else if (sel === null) {
+              // Spotlight: with nothing selected, fade everything else back.
+              res.color = DIM_NODE;
+              res.labelColor = DIM_LABEL;
+              res.label = "";
+              res.zIndex = 0;
+            }
+          }
+          return res;
+        },
+        edgeReducer: (edge, attrs) => {
+          const s = st.current;
+          const res: Record<string, unknown> = { ...attrs };
+          if (s.scene.kind === "areas") return res;
+          const [a, b] = g.extremities(edge);
+          const hov = s.hovered;
+
+          // Hover takes precedence: trace only the hovered node's links.
+          if (hov !== null) {
+            if (a === hov || b === hov) {
+              res.color = EDGE_FOCUS;
+              res.size = (attrs.size as number) + 1.6;
+              res.zIndex = 5;
+              return res;
+            }
+            if (s.selected === null) {
+              res.hidden = true;
+              return res;
+            }
+          }
+
+          if (s.selected === null) return res;
+          const sel = String(s.selected);
+          if (a === sel || b === sel) {
+            res.color = EDGE_FOCUS;
+            res.size = (attrs.size as number) + 1.4;
+            res.zIndex = 1;
+          } else {
+            res.hidden = true;
+          }
+          return res;
+        },
+      });
+    } catch {
+      setFailed(true);
+      return;
+    }
+
+    renderer.on("enterNode", ({ node }) => {
+      container.style.cursor = "pointer";
+      st.current.hovered = node;
+      const hn = new Set<string>();
+      if (g.hasNode(node)) for (const nb of g.neighbors(node)) hn.add(nb);
+      st.current.hoverNeighbors = hn;
+      renderer.refresh({ skipIndexation: true });
+      positionTip(renderer, node);
+    });
+    renderer.on("leaveNode", () => {
+      container.style.cursor = "";
+      st.current.hovered = null;
+      st.current.hoverNeighbors = new Set();
+      renderer.refresh({ skipIndexation: true });
+      if (tipRef.current) tipRef.current.style.opacity = "0";
+    });
+    renderer.on("clickNode", ({ node }) => {
+      const c = cbs.current;
+      if (st.current.scene.kind === "areas") c.onFocusArea(Number(node.slice(1)));
+      else c.onSelectPaper(Number(node));
+    });
+    renderer.on("clickStage", () => {
+      if (st.current.scene.kind !== "areas") cbs.current.onClearSelection();
+    });
+    renderer.on("afterRender", () => {
+      const h = st.current.hovered;
+      if (h) positionTip(renderer, h);
+    });
+
+    const positionTip = (r: Sigma, node: string) => {
+      const tip = tipRef.current;
+      if (!tip || !r.getGraph().hasNode(node)) return;
+      const d = r.getNodeDisplayData(node);
+      if (!d) return;
+      const p = r.graphToViewport({ x: d.x, y: d.y });
+      tip.innerHTML = tipHtml(node);
+      tip.style.transform = `translate(${p.x}px, ${p.y - 18}px) translate(-50%, -100%)`;
+      tip.style.opacity = "1";
+    };
+
+    const tipHtml = (node: string): string => {
+      const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c] || c);
+      if (node.startsWith("a")) {
+        const a = data.areas.find((x) => x.id === Number(node.slice(1)));
+        if (!a) return "";
+        return `<div class="t">${esc(a.name)}</div><div class="m">${fmtInt(a.size)} papers · click to open</div>`;
+      }
+      const p = data.papers[Number(node)];
+      if (!p) return "";
+      return `<div class="t">${esc(p.t)}</div><div class="m">${esc(shortAuthors(p))}</div>`;
+    };
+
+    sigmaRef.current = renderer;
+    graphRef.current = g;
+    return () => {
+      renderer.kill();
+      sigmaRef.current = null;
+      graphRef.current = null;
+    };
+    // The renderer is created exactly once; data is stable per bundle version.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.version]);
+
+  // ---- (re)populate the graph when the scene changes --------------------
+  useEffect(() => {
+    const g = graphRef.current;
+    const r = sigmaRef.current;
+    if (!g || !r) return;
+    g.clear();
+    // A scene rebuild invalidates any hovered node from the previous scene;
+    // clear it so stale hover state can't dim the new graph into blankness.
+    st.current.hovered = null;
+    st.current.hoverNeighbors = new Set();
+    if (tipRef.current) tipRef.current.style.opacity = "0";
+
+    if (scene.kind === "areas") {
+      const sizes = scene.areas.map((a) => a.rc ?? 1);
+      const lo = Math.min(...sizes, 1);
+      const hi = Math.max(...sizes, 1);
+      const span = hi - lo || 1;
+      for (const a of scene.areas) {
+        g.addNode("a" + a.id, {
+          x: a.x!,
+          y: a.y!,
+          size: 12 + 22 * Math.sqrt(((a.rc ?? 1) - lo) / span),
+          color: a.color,
+          label: a.name,
+          ring: 0,
+          ringColor: INK,
+        });
+      }
+      const ws = scene.edges.map((e) => e[2]);
+      const wlo = Math.min(...ws, 0);
+      const wspan = Math.max(...ws, 1) - wlo || 1;
+      for (const [a, b, w] of scene.edges) {
+        const sa = "a" + a, sb = "a" + b;
+        if (!g.hasNode(sa) || !g.hasNode(sb) || g.hasEdge(sa, sb)) continue;
+        g.addEdge(sa, sb, { size: 0.8 + ((w - wlo) / wspan) * 3.4, color: "#c6d0e2", zIndex: 0 });
+      }
+    } else {
+      const ids = scene.ids;
+      const degree = new Map<number, number>();
+      for (const [a, b] of scene.edges) {
+        degree.set(a, (degree.get(a) ?? 0) + 1);
+        degree.set(b, (degree.get(b) ?? 0) + 1);
+      }
+      const metric = (i: number) =>
+        data.sizeBy === "citations" ? Math.log1p(data.papers[i].ci) : degree.get(i) ?? 0;
+      const vals = ids.map(metric);
+      const lo = Math.min(...vals, 0);
+      const span = (Math.max(...vals, 1) - lo) || 1;
+      for (const i of ids) {
+        const p: Paper = data.papers[i];
+        g.addNode(String(i), {
+          x: p.x,
+          y: p.y,
+          size: 4.5 + 9.5 * Math.pow((metric(i) - lo) / span, 0.9),
+          color: p.c < 0 ? NOISE : colors.get(p.c) ?? NOISE,
+          label: p.t,
+          ring: 0,
+          ringColor: INK,
+        });
+      }
+      const ws = scene.edges.map((e) => e[2]);
+      const wlo = Math.min(...ws, 0);
+      const wspan = (Math.max(...ws, 1) - wlo) || 1;
+      for (const [a, b, w] of scene.edges) {
+        const sa = String(a), sb = String(b);
+        if (!g.hasNode(sa) || !g.hasNode(sb) || g.hasEdge(sa, sb)) continue;
+        g.addEdge(sa, sb, { size: 0.7 + ((w - wlo) / wspan) * 1.8, color: EDGE_FAINT, zIndex: 0 });
+      }
+    }
+
+    // Recompute the selected paper's neighbour set for the new scene.
+    refreshSelection();
+    r.refresh();
+    const cam = r.getCamera();
+    cam.animatedReset({ duration: props.reducedMotion ? 0 : 600 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scene.key]);
+
+  // ---- selection emphasis (no rebuild, keeps camera/viewport) -----------
+  const refreshSelection = () => {
+    const g = graphRef.current;
+    const s = st.current;
+    s.selected = props.selected;
+    s.neighbors = new Set();
+    if (props.selected !== null && g && g.hasNode(String(props.selected))) {
+      for (const n of g.neighbors(String(props.selected))) s.neighbors.add(n);
+    }
+  };
+  useEffect(() => {
+    const r = sigmaRef.current;
+    if (!r) return;
+    refreshSelection();
+    r.refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.selected]);
+
+  // ---- deliberate camera moves only -------------------------------------
+  useEffect(() => {
+    const r = sigmaRef.current;
+    const cmd = props.cameraCmd;
+    if (!r || !cmd) return;
+    const cam = r.getCamera();
+    const dur = props.reducedMotion ? 0 : 400;
+    if (cmd.kind === "zoomIn") cam.animatedZoom({ duration: dur });
+    else if (cmd.kind === "zoomOut") cam.animatedUnzoom({ duration: dur });
+    else cam.animatedReset({ duration: props.reducedMotion ? 0 : 600 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.cameraCmd]);
+
+  // Centre on the selected paper only when selection arrives from outside the
+  // map (a related-paper jump or the list), never on a direct map click/hover.
+  useEffect(() => {
+    const r = sigmaRef.current;
+    if (!r || props.selected === null || props.focusNonce === 0) return;
+    const d = r.getNodeDisplayData(String(props.selected));
+    if (!d) return;
+    const cam = r.getCamera();
+    cam.animate({ x: d.x, y: d.y, ratio: Math.min(cam.ratio, 0.5) },
+      { duration: props.reducedMotion ? 0 : 500 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.focusNonce]);
+
+  if (failed) {
+    return (
+      <div className="map-fallback" role="status">
+        <b>Interactive map unavailable</b>
+        <p>Your browser could not start the graphics renderer this map needs. Use the List
+          view to search, read papers and follow related work — every paper stays reachable there.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="map-canvas-wrap">
+      <div
+        ref={containerRef}
+        className="map-canvas"
+        role="application"
+        aria-label="Research map. A visual graph of research areas and papers. Use the List view for a keyboard-accessible paper list."
+      />
+      <div ref={tipRef} className="map-tip" aria-hidden />
+    </div>
+  );
+}

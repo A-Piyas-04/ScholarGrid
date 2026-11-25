@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/* ScholarGrid tokens: graph paper, fountain-pen ink, highlighter for evidence.
+   Raw values live on :root so dark mode only redefines them; Tailwind reads them via @theme inline. */
+:root {
+  --paper: #f4f7f7;
+  --surface: #ffffff;
+  --surface-2: #eef3f4;
+  --grid: #dce7ea;
+  --line: #d6dfe3;
+  --line-strong: #b9c7cd;
+  --ink: #13202c;
+  --ink-2: #2c3a47;
+  --muted: #56636e;
+  --faint: #7d8a94;
+  --pen: #1f4fa8;
+  --pen-hover: #183f88;
+  --pen-soft: #e6edfa;
+  --on-pen: #ffffff;
+  --mark: #ffe15a;
+  --mark-soft: rgba(255, 225, 90, 0.55);
+  --verd: #0e7a63;
+  --verd-soft: #e1f2ec;
+  --brick: #a8432e;
+  --brick-soft: #f8e7e2;
+  --amber: #9a6400;
+  --amber-soft: #fbf0d9;
+  --focus: #5b8def;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1620;
+    --surface: #152030;
+    --surface-2: #1b2839;
+    --grid: #1d2b3b;
+    --line: #26364a;
+    --line-strong: #39506a;
+    --ink: #e7edf2;
+    --ink-2: #c9d4de;
+    --muted: #9aa9b6;
+    --faint: #75879a;
+    --pen: #86a8ff;
+    --pen-hover: #a5bfff;
+    --pen-soft: #1d2d4d;
+    --on-pen: #0c1420;
+    --mark: #e6c94a;
+    --mark-soft: rgba(230, 201, 74, 0.28);
+    --verd: #4fc4a2;
+    --verd-soft: #123329;
+    --brick: #ec8a74;
+    --brick-soft: #3a1d17;
+    --amber: #e2b45a;
+    --amber-soft: #36290f;
+    --focus: #86a8ff;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #0e1620;
+  --surface: #152030;
+  --surface-2: #1b2839;
+  --grid: #1d2b3b;
+  --line: #26364a;
+  --line-strong: #39506a;
+  --ink: #e7edf2;
+  --ink-2: #c9d4de;
+  --muted: #9aa9b6;
+  --faint: #75879a;
+  --pen: #86a8ff;
+  --pen-hover: #a5bfff;
+  --pen-soft: #1d2d4d;
+  --on-pen: #0c1420;
+  --mark: #e6c94a;
+  --mark-soft: rgba(230, 201, 74, 0.28);
+  --verd: #4fc4a2;
+  --verd-soft: #123329;
+  --brick: #ec8a74;
+  --brick-soft: #3a1d17;
+  --amber: #e2b45a;
+  --amber-soft: #36290f;
+  --focus: #86a8ff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-grid: var(--grid);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-pen: var(--pen);
+  --color-pen-hover: var(--pen-hover);
+  --color-pen-soft: var(--pen-soft);
+  --color-on-pen: var(--on-pen);
+  --color-mark: var(--mark);
+  --color-verd: var(--verd);
+  --color-verd-soft: var(--verd-soft);
+  --color-brick: var(--brick);
+  --color-brick-soft: var(--brick-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --font-serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-schibsted), "Segoe UI", system-ui, sans-serif;
+  --radius-chip: 5px;
+  --radius-panel: 10px;
+  --radius-card: 14px;
+}
+
+@layer base {
+html {
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--mark-soft);
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+a {
+  color: inherit;
+}
+
+}
+
+/* Highlighter: verified evidence quotes and matched search terms. */
+.mark {
+  background: linear-gradient(
+    100deg,
+    transparent 0.15em,
+    var(--mark-soft) 0.25em,
+    var(--mark-soft) calc(100% - 0.25em),
+    transparent calc(100% - 0.1em)
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.05em 0.2em;
+  margin: 0 -0.1em;
+  border-radius: 0.2em;
+}
+
+mark {
+  background: var(--mark-soft);
+  color: inherit;
+  padding: 0 0.12em;
+  border-radius: 0.15em;
+}
+
+/* Graph paper: only behind the home question and empty states. */
+.graph-paper {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Long-form reading text (abstracts, briefs, plans). */
+.prose-read {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.68;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+@keyframes sg-indeterminate {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(260%); }
+}
+
+.progress-indeterminate {
+  animation: sg-indeterminate 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Research map (Sigma.js canvas, ported from the Streamlit explorer). */
+.map-canvas-wrap {
+  position: relative;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  background-color: #fbfcfc;
+  background-image: radial-gradient(circle, #dce7ea 1px, transparent 1.2px);
+  color-scheme: light;
+  background-size: 22px 22px;
+}
+.map-canvas { position: absolute; inset: 0; }
+.map-canvas:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.map-tip {
+  position: absolute; top: 0; left: 0; opacity: 0; pointer-events: none; max-width: 300px;
+  padding: 10px 13px; border-radius: 10px; background: #ffffff; border: 1px solid #d6dfe3;
+  box-shadow: 0 10px 30px rgba(19, 32, 44, 0.18); transition: opacity 0.12s ease; z-index: 5;
+}
+.map-tip .t { font-family: var(--font-serif); font-size: 14px; color: #13202c; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.map-tip .m { font-size: 12px; color: #56636e; margin-top: 3px; }
+.map-fallback { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px; padding: 32px; text-align: center; color: var(--muted); }
+.map-fallback b { color: var(--ink); font-size: 17px; }

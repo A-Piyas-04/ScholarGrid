@@ -1,0 +1,11 @@
+# %%
+# Bootstrap (identical in every notebook): get the repo, then import the shared helpers.
+import os
+import sys
+
+if os.path.isdir("/kaggle/working") and not os.path.isdir("/kaggle/working/sg/kaggle"):
+    os.system("git clone --depth 1 -b upgrade-use-case https://github.com/A-Piyas-04/PaperPorteHobe.git /kaggle/working/sg")
+sys.path.insert(0, "/kaggle/working/sg/kaggle" if os.path.isdir("/kaggle/working") else os.path.abspath("kaggle"))
+import sg_kaggle as sk  # noqa: E402
+
+sk.setup()

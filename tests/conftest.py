@@ -44,6 +44,9 @@ def make_config(tmp_path, **overrides) -> Config:
     raw["workspace"]["cache_dir"] = str(tmp_path / "workspaces")
     raw["workspace"]["live"] = False
     raw["persistence"]["default_url"] = "sqlite:///" + str(tmp_path / "app.db").replace("\\", "/")
+    if os.environ.get("SCHOLARGRID_TEST_POSTGRES") != "1":
+        # .env sets SCHOLARGRID_DB_URL for the real app; never let a test write to that database.
+        raw["persistence"]["db_url_env"] = "SCHOLARGRID_TEST_DB_URL_NEVER_SET"
     raw["telemetry"]["enabled"] = False
     raw["evaluation"]["report_dir"] = str(tmp_path / "eval")
     for section, values in overrides.items():

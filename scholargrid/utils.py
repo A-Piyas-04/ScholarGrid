@@ -85,11 +85,27 @@ def ensure_dir(path: str) -> str:
 
 
 def save_json(obj: Any, path: str) -> None:
+    """Atomic write. The temp name is unique per writer, and the final rename is retried briefly because on
+    Windows a concurrent reader (or another writer of the same path) can hold the target open."""
+    import threading
+    import time
+    import uuid
+
     ensure_dir(os.path.dirname(path))
-    tmp = path + ".tmp"
+    tmp = f"{path}.{os.getpid()}.{threading.get_ident()}.{uuid.uuid4().hex[:6]}.tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
         json.dump(obj, fh, indent=2, ensure_ascii=False, default=_json_default)
-    os.replace(tmp, path)
+    for attempt in range(6):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            if attempt == 5:
+                try:
+                    os.remove(tmp)
+                finally:
+                    raise
+            time.sleep(0.05 * (attempt + 1))
 
 
 def load_json(path: str) -> Any:

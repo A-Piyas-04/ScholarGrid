@@ -1,0 +1,58 @@
+# Kaggle (offline GPU) build of a ScholarGrid release. Used by kaggle/sg_kaggle.sg_config(), which adds absolute
+# paths under /kaggle/working. Kaggle sessions have no API keys: LLM features and full-text fetching are off; the
+# local machine attaches its stored extractions when importing the release
+# (python -m scholargrid.release import <zip>).
+extends: config.yaml
+environment: development
+
+data:
+  source: kaggle
+  kaggle_json: /kaggle/input/arxiv/arxiv-metadata-oai-snapshot.json
+  profile: standard            # dev (~5k) for the first pass, standard (~50k) after validation
+  date_start: "2023-01-01"
+  date_end: auto
+  categories: all_cs
+  allow_synthetic_fallback: false
+  sampling: stratified
+  use_cache: true
+
+enrich:
+  openalex: true               # Kaggle notebooks may use the internet; OpenAlex needs no key
+
+embedding:
+  backend: minilm
+  device: auto
+  dtype: float16
+
+index:
+  backend: auto
+
+validation:
+  enforce_gates: false         # report, don't block; decide locally after `release verify`
+
+search:
+  live: false
+
+workspace:
+  live: false
+
+llm:
+  provider: none
+
+fulltext:
+  enabled: false
+
+extract:
+  enabled: false
+
+foundations:
+  llm_reasons: false
+
+gaps:
+  enabled: true                # heuristic detectors still run (template wording without an LLM)
+
+persistence:
+  enabled: false
+
+telemetry:
+  enabled: false

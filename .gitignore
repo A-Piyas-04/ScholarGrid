@@ -55,3 +55,22 @@ app/components/explorer/frontend/playwright-report/
 .DS_Store
 .idea/
 .vscode/
+
+# Web app (Next.js, web/)
+web/node_modules/
+web/.next/
+web/out/
+web/next-env.d.ts
+web/*.tsbuildinfo
+web/.env*.local
+web/test-results/
+web/playwright-report/
+web/.vercel/
+npm-debug.log*
+
+# API / local demo state
+data/demo_app.db*
+reports/screenshots/
+
+# Kaggle notebook local smoke-test outputs
+kaggle/_work/

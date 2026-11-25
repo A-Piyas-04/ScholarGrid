@@ -209,8 +209,50 @@ def main() -> None:
     sub.add_parser("list")
     rb = sub.add_parser("rollback")
     rb.add_argument("release_id")
+    vf = sub.add_parser("verify", help="check an external bundle (dir or .zip) against the app's contract")
+    vf.add_argument("source")
+    vf.add_argument("--no-embedder", action="store_true", help="skip loading the embedding model")
+    im = sub.add_parser("import", help="verify an external bundle and add it as a release")
+    im.add_argument("source")
+    im.add_argument("--id", default=None, help="release id (default: today's date)")
+    im.add_argument("--activate", action="store_true", help="serve it right away (writes CURRENT)")
+    im.add_argument("--allow-bm25", action="store_true",
+                    help="accept a bundle whose embedding model can't run locally (keyword search only)")
+    im.add_argument("--no-extractions", action="store_true",
+                    help="don't attach this machine's stored LLM extractions (open problems, facets)")
+    ck = sub.add_parser("checksums", help="write checksums.json for a bundle directory")
+    ck.add_argument("directory")
     args = p.parse_args()
     cfg = load_config(args.config)
+    if args.cmd in ("verify", "import", "checksums"):
+        from . import release_import as ri
+
+        if args.cmd == "checksums":
+            n = len(ri.write_checksums(args.directory))
+            print(f"Wrote checksums for {n} files to {os.path.join(args.directory, ri.CHECKSUMS_FILE)}")
+            return
+        if args.cmd == "verify":
+            src = args.source
+            tmp = None
+            if os.path.isfile(src) and src.lower().endswith(".zip"):
+                import tempfile
+
+                tmp = tempfile.mkdtemp(prefix="sg-verify-")
+                src = ri._safe_extract(src, tmp)
+            rep = ri.verify_bundle(cfg, src, check_embedder=not args.no_embedder)
+            print(rep.text())
+            if tmp:
+                shutil.rmtree(tmp, ignore_errors=True)
+            raise SystemExit(0 if rep.ok else 1)
+        try:
+            rid = ri.import_bundle(cfg, args.source, release_id=args.id, activate=args.activate,
+                                   allow_bm25=args.allow_bm25, with_extractions=not args.no_extractions)
+        except (ValueError, FileNotFoundError) as exc:
+            print(f"Import failed: {exc}")
+            raise SystemExit(1) from exc
+        print(f"Imported as release {rid}" + (" and set as CURRENT" if args.activate else
+                                              f"; serve it with: python -m scholargrid.release rollback {rid}"))
+        return
     if args.cmd == "list":
         cur = current_release(cfg)
         for r in list_releases(cfg):

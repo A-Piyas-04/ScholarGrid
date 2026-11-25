@@ -1,0 +1,6549 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "ScholarGrid API",
+  "description": "Research discovery API: search, topic workspaces, reading paths, open problems, research plans and projects over a versioned arXiv CS release.",
+  "version": "2.0.0"
+ },
+ "paths": {
+  "/api/health": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Health",
+    "operationId": "health_api_health_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "type": "string"
+         },
+         "type": "object",
+         "title": "Response Health Api Health Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/status": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Status",
+    "operationId": "status_api_status_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/StatusOut"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/methodology": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Methodology",
+    "operationId": "methodology_api_methodology_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/MethodologyOut"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/releases": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Releases",
+    "operationId": "releases_api_releases_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ReleaseRow"
+         },
+         "type": "array",
+         "title": "Response Releases Api Releases Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/releases/{release_id}/activate": {
+   "post": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Activate",
+    "description": "Serve another published release (writes ``data/releases/CURRENT`` and reloads).",
+    "operationId": "activate_api_releases__release_id__activate_post",
+    "parameters": [
+     {
+      "name": "release_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Release Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/jobs/{job_id}": {
+   "get": {
+    "tags": [
+     "system"
+    ],
+    "summary": "Job",
+    "operationId": "job_api_jobs__job_id__get",
+    "parameters": [
+     {
+      "name": "job_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Job Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/search": {
+   "get": {
+    "tags": [
+     "search"
+    ],
+    "summary": "Search",
+    "operationId": "search_api_search_get",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 300,
+       "description": "What to look for",
+       "title": "Q"
+      },
+      "description": "What to look for"
+     },
+     {
+      "name": "date_from",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "YYYY-MM-DD",
+       "title": "Date From"
+      },
+      "description": "YYYY-MM-DD"
+     },
+     {
+      "name": "date_to",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "YYYY-MM-DD",
+       "title": "Date To"
+      },
+      "description": "YYYY-MM-DD"
+     },
+     {
+      "name": "categories",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "anyOf": [
+        {
+         "type": "array",
+         "items": {
+          "type": "string"
+         }
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "description": "arXiv categories, e.g. cs.CL",
+       "title": "Categories"
+      },
+      "description": "arXiv categories, e.g. cs.CL"
+     },
+     {
+      "name": "min_citations",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 0,
+       "title": "Min Citations"
+      }
+     },
+     {
+      "name": "venue_only",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Venue Only"
+      }
+     },
+     {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "relevance",
+        "newest",
+        "most_cited",
+        "citation_velocity"
+       ],
+       "type": "string",
+       "default": "relevance",
+       "title": "Sort"
+      }
+     },
+     {
+      "name": "live",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "description": "Also query live sources (slower)",
+       "default": true,
+       "title": "Live"
+      },
+      "description": "Also query live sources (slower)"
+     },
+     {
+      "name": "pages",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 6,
+       "minimum": 1,
+       "default": 1,
+       "title": "Pages"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SearchOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/categories": {
+   "get": {
+    "tags": [
+     "search"
+    ],
+    "summary": "Categories",
+    "description": "Primary categories in the collection with paper counts (for search filters).",
+    "operationId": "categories_api_categories_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "items": {
+           "anyOf": [
+            {
+             "type": "string"
+            },
+            {
+             "type": "integer"
+            }
+           ]
+          },
+          "type": "array"
+         },
+         "type": "array",
+         "title": "Response Categories Api Categories Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/papers/detail": {
+   "get": {
+    "tags": [
+     "papers"
+    ],
+    "summary": "Detail",
+    "operationId": "detail_api_papers_detail_get",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 300,
+       "title": "Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PaperDetail"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/papers/similar": {
+   "get": {
+    "tags": [
+     "papers"
+    ],
+    "summary": "Similar",
+    "operationId": "similar_api_papers_similar_get",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 300,
+       "title": "Id"
+      }
+     },
+     {
+      "name": "k",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 50,
+       "minimum": 1,
+       "default": 12,
+       "title": "K"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SimilarOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/papers/bibtex": {
+   "post": {
+    "tags": [
+     "papers"
+    ],
+    "summary": "Bibtex",
+    "operationId": "bibtex_api_papers_bibtex_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BibtexIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TextOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/topics": {
+   "post": {
+    "tags": [
+     "topics"
+    ],
+    "summary": "Start Topic",
+    "operationId": "start_topic_api_topics_post",
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/TopicIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobStarted"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "topics"
+    ],
+    "summary": "Recent Topics",
+    "description": "Recently built topic maps on this machine (newest first).",
+    "operationId": "recent_topics_api_topics_get",
+    "parameters": [
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 50,
+       "minimum": 1,
+       "default": 12,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "array",
+         "items": {
+          "$ref": "#/components/schemas/RecentTopic"
+         },
+         "title": "Response Recent Topics Api Topics Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/topics/{key}": {
+   "get": {
+    "tags": [
+     "topics"
+    ],
+    "summary": "Get Topic",
+    "operationId": "get_topic_api_topics__key__get",
+    "parameters": [
+     {
+      "name": "key",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/WorkspaceOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/gaps/types": {
+   "get": {
+    "tags": [
+     "open problems"
+    ],
+    "summary": "Gap Types",
+    "operationId": "gap_types_api_gaps_types_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "additionalProperties": {
+           "type": "string"
+          },
+          "type": "object"
+         },
+         "type": "object",
+         "title": "Response Gap Types Api Gaps Types Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/topics/{key}/gaps": {
+   "post": {
+    "tags": [
+     "open problems"
+    ],
+    "summary": "Start Gaps",
+    "operationId": "start_gaps_api_topics__key__gaps_post",
+    "parameters": [
+     {
+      "name": "key",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Key"
+      }
+     },
+     {
+      "name": "refresh",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Refresh"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobStarted"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "get": {
+    "tags": [
+     "open problems"
+    ],
+    "summary": "Get Gaps",
+    "operationId": "get_gaps_api_topics__key__gaps_get",
+    "parameters": [
+     {
+      "name": "key",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/GapsOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/gaps/recheck": {
+   "post": {
+    "tags": [
+     "open problems"
+    ],
+    "summary": "Recheck",
+    "operationId": "recheck_api_gaps_recheck_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RecheckIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/plans/options": {
+   "get": {
+    "tags": [
+     "plans"
+    ],
+    "summary": "Options",
+    "operationId": "options_api_plans_options_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PlanOptions"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/plans": {
+   "post": {
+    "tags": [
+     "plans"
+    ],
+    "summary": "Start Plan",
+    "operationId": "start_plan_api_plans_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PlanIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/plans/validate": {
+   "post": {
+    "tags": [
+     "plans"
+    ],
+    "summary": "Validate",
+    "description": "Check that a plan document (e.g. from an imported project) is well formed.",
+    "operationId": "validate_api_plans_validate_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PlanExportIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/PlanDocument"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/plans/export": {
+   "post": {
+    "tags": [
+     "plans"
+    ],
+    "summary": "Export",
+    "operationId": "export_api_plans_export_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PlanExportIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TextOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/statuses": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Statuses",
+    "operationId": "statuses_api_projects_statuses_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "items": {
+           "type": "string"
+          },
+          "type": "array"
+         },
+         "type": "object",
+         "title": "Response Statuses Api Projects Statuses Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "List Projects",
+    "operationId": "list_projects_api_projects_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/ProjectSummary"
+         },
+         "type": "array",
+         "title": "Response List Projects Api Projects Get"
+        }
+       }
+      }
+     }
+    }
+   },
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Create",
+    "operationId": "create_api_projects_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ProjectIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectSummary"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Get",
+    "operationId": "get_api_projects__pid__get",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectDetail"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Patch",
+    "operationId": "patch_api_projects__pid__patch",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ProjectPatch"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectSummary"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Delete",
+    "operationId": "delete_api_projects__pid__delete",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Delete Api Projects  Pid  Delete"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/papers": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Add Paper",
+    "operationId": "add_paper_api_projects__pid__papers_post",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AddPaperIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Add Paper Api Projects  Pid  Papers Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "patch": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Update Paper",
+    "operationId": "update_paper_api_projects__pid__papers_patch",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/PaperPatch"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Update Paper Api Projects  Pid  Papers Patch"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Remove Paper",
+    "operationId": "remove_paper_api_projects__pid__papers_delete",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "paper_id",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Paper Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Remove Paper Api Projects  Pid  Papers Delete"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/gaps": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Add Gap",
+    "operationId": "add_gap_api_projects__pid__gaps_post",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AddGapIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Add Gap Api Projects  Pid  Gaps Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/gaps/{gap_id}": {
+   "patch": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Update Gap",
+    "operationId": "update_gap_api_projects__pid__gaps__gap_id__patch",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "gap_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Gap Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/GapPatch"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Update Gap Api Projects  Pid  Gaps  Gap Id  Patch"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Remove Gap",
+    "operationId": "remove_gap_api_projects__pid__gaps__gap_id__delete",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "gap_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Gap Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Remove Gap Api Projects  Pid  Gaps  Gap Id  Delete"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/plans": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Add Plan",
+    "operationId": "add_plan_api_projects__pid__plans_post",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/AddPlanIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "integer"
+         },
+         "title": "Response Add Plan Api Projects  Pid  Plans Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/plans/{plan_id}": {
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Remove Plan",
+    "operationId": "remove_plan_api_projects__pid__plans__plan_id__delete",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "plan_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Plan Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Remove Plan Api Projects  Pid  Plans  Plan Id  Delete"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/notes": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Add Note",
+    "operationId": "add_note_api_projects__pid__notes_post",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NoteIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "integer"
+         },
+         "title": "Response Add Note Api Projects  Pid  Notes Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/notes/{note_id}": {
+   "patch": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Update Note",
+    "operationId": "update_note_api_projects__pid__notes__note_id__patch",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "note_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Note Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/NoteIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Update Note Api Projects  Pid  Notes  Note Id  Patch"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Remove Note",
+    "operationId": "remove_note_api_projects__pid__notes__note_id__delete",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     },
+     {
+      "name": "note_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Note Id"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "title": "Response Remove Note Api Projects  Pid  Notes  Note Id  Delete"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/export": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Export",
+    "operationId": "export_api_projects__pid__export_get",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true,
+         "title": "Response Export Api Projects  Pid  Export Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/import": {
+   "post": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Import Project",
+    "operationId": "import_project_api_projects_import_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ImportIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/ProjectSummary"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/projects/{pid}/bibtex": {
+   "get": {
+    "tags": [
+     "projects"
+    ],
+    "summary": "Bibtex",
+    "operationId": "bibtex_api_projects__pid__bibtex_get",
+    "parameters": [
+     {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Pid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TextOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/areas": {
+   "get": {
+    "tags": [
+     "areas"
+    ],
+    "summary": "Areas",
+    "operationId": "areas_api_areas_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/AreaSummary"
+         },
+         "type": "array",
+         "title": "Response Areas Api Areas Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/areas/{cid}": {
+   "get": {
+    "tags": [
+     "areas"
+    ],
+    "summary": "Area",
+    "operationId": "area_api_areas__cid__get",
+    "parameters": [
+     {
+      "name": "cid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Cid"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AreaDetail"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/areas/{cid}/papers": {
+   "get": {
+    "tags": [
+     "areas"
+    ],
+    "summary": "Area Papers",
+    "operationId": "area_papers_api_areas__cid__papers_get",
+    "parameters": [
+     {
+      "name": "cid",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "integer",
+       "title": "Cid"
+      }
+     },
+     {
+      "name": "sort",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "enum": [
+        "cited",
+        "newest",
+        "central"
+       ],
+       "type": "string",
+       "default": "cited",
+       "title": "Sort"
+      }
+     },
+     {
+      "name": "offset",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "minimum": 0,
+       "default": 0,
+       "title": "Offset"
+      }
+     },
+     {
+      "name": "limit",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 100,
+       "minimum": 1,
+       "default": 30,
+       "title": "Limit"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/AreaPapersOut"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/trends": {
+   "get": {
+    "tags": [
+     "areas"
+    ],
+    "summary": "Trends",
+    "operationId": "trends_api_trends_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/TrendsOut"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/map": {
+   "get": {
+    "tags": [
+     "map"
+    ],
+    "summary": "Map Payload",
+    "operationId": "map_payload_api_map_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": true,
+         "type": "object",
+         "title": "Response Map Payload Api Map Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/map/search": {
+   "get": {
+    "tags": [
+     "map"
+    ],
+    "summary": "Map Search",
+    "description": "Matches as ``[payload index, score]``; matches outside the sample are returned in ``extra`` with\nindices continuing after the payload's papers, in the same order.",
+    "operationId": "map_search_api_map_search_get",
+    "parameters": [
+     {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 300,
+       "title": "Q"
+      }
+     },
+     {
+      "name": "k",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "integer",
+       "maximum": 200,
+       "minimum": 1,
+       "default": 40,
+       "title": "K"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true,
+         "title": "Response Map Search Api Map Search Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/settings": {
+   "get": {
+    "tags": [
+     "settings"
+    ],
+    "summary": "Settings",
+    "operationId": "settings_api_settings_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/SettingsOut"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/settings/byok": {
+   "post": {
+    "tags": [
+     "settings"
+    ],
+    "summary": "Set Byok",
+    "description": "Use your own free Gemini key (one tiny test request first). Lost when the server restarts.",
+    "operationId": "set_byok_api_settings_byok_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/ByokIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "type": "object",
+         "title": "Response Set Byok Api Settings Byok Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   },
+   "delete": {
+    "tags": [
+     "settings"
+    ],
+    "summary": "Clear Byok",
+    "operationId": "clear_byok_api_settings_byok_delete",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "type": "boolean"
+         },
+         "type": "object",
+         "title": "Response Clear Byok Api Settings Byok Delete"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/judgments/queries": {
+   "get": {
+    "tags": [
+     "evaluation"
+    ],
+    "summary": "Queries",
+    "operationId": "queries_api_judgments_queries_get",
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/JudgeQuery"
+         },
+         "type": "array",
+         "title": "Response Queries Api Judgments Queries Get"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/judgments/pool": {
+   "get": {
+    "tags": [
+     "evaluation"
+    ],
+    "summary": "Pool",
+    "operationId": "pool_api_judgments_pool_get",
+    "parameters": [
+     {
+      "name": "query",
+      "in": "query",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "minLength": 1,
+       "maxLength": 300,
+       "title": "Query"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JudgePool"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/judgments": {
+   "post": {
+    "tags": [
+     "evaluation"
+    ],
+    "summary": "Judge",
+    "operationId": "judge_api_judgments_post",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/JudgeIn"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "additionalProperties": {
+          "type": "integer"
+         },
+         "type": "object",
+         "title": "Response Judge Api Judgments Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/assistant/brief": {
+   "post": {
+    "tags": [
+     "assistant"
+    ],
+    "summary": "Start Brief",
+    "operationId": "start_brief_api_assistant_brief_post",
+    "parameters": [
+     {
+      "name": "refresh",
+      "in": "query",
+      "required": false,
+      "schema": {
+       "type": "boolean",
+       "default": false,
+       "title": "Refresh"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BriefIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/JobStarted"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/api/assistant/brief/{key}": {
+   "get": {
+    "tags": [
+     "assistant"
+    ],
+    "summary": "Get Brief",
+    "operationId": "get_brief_api_assistant_brief__key__get",
+    "parameters": [
+     {
+      "name": "key",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Key"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true,
+         "title": "Response Get Brief Api Assistant Brief  Key  Get"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "schemas": {
+   "AddGapIn": {
+    "properties": {
+     "card": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Card"
+     }
+    },
+    "type": "object",
+    "required": [
+     "card"
+    ],
+    "title": "AddGapIn"
+   },
+   "AddPaperIn": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "record": {
+      "anyOf": [
+       {
+        "additionalProperties": true,
+        "type": "object"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Record"
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": "web"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id"
+    ],
+    "title": "AddPaperIn"
+   },
+   "AddPlanIn": {
+    "properties": {
+     "doc": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Doc"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "doc"
+    ],
+    "title": "AddPlanIn"
+   },
+   "AreaCount": {
+    "properties": {
+     "area_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Area Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name",
+      "default": ""
+     },
+     "count": {
+      "type": "integer",
+      "title": "Count",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "area_id",
+     "name",
+     "count"
+    ],
+    "title": "AreaCount"
+   },
+   "AreaDetail": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label",
+      "default": ""
+     },
+     "size": {
+      "type": "integer",
+      "title": "Size",
+      "default": 0
+     },
+     "color": {
+      "type": "string",
+      "title": "Color",
+      "default": ""
+     },
+     "keywords": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Keywords"
+     },
+     "top_categories": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Top Categories"
+     },
+     "recent_papers": {
+      "type": "integer",
+      "title": "Recent Papers",
+      "default": 0
+     },
+     "crowdedness": {
+      "type": "number",
+      "title": "Crowdedness",
+      "default": 0.0
+     },
+     "growth": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Growth"
+     },
+     "growth_ci": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "number"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Growth Ci"
+     },
+     "reliable": {
+      "type": "boolean",
+      "title": "Reliable",
+      "default": false
+     },
+     "quadrant": {
+      "type": "string",
+      "title": "Quadrant",
+      "default": ""
+     },
+     "advice": {
+      "type": "string",
+      "title": "Advice",
+      "default": ""
+     },
+     "open_problems": {
+      "type": "integer",
+      "title": "Open Problems",
+      "default": 0
+     },
+     "stated_per_100": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stated Per 100"
+     },
+     "stability": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stability"
+     },
+     "monthly": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Monthly"
+     },
+     "windows": {
+      "items": {
+       "$ref": "#/components/schemas/GrowthWindow"
+      },
+      "type": "array",
+      "title": "Windows"
+     },
+     "growth_text": {
+      "type": "string",
+      "title": "Growth Text",
+      "default": ""
+     },
+     "representative": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Representative"
+     },
+     "most_cited": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Most Cited"
+     },
+     "newest": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Newest"
+     },
+     "top_facets": {
+      "additionalProperties": {
+       "items": {
+        "items": {},
+        "type": "array"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Top Facets"
+     },
+     "reading_path": {
+      "items": {
+       "$ref": "#/components/schemas/ReadingItem"
+      },
+      "type": "array",
+      "title": "Reading Path"
+     },
+     "gap_cards": {
+      "items": {
+       "$ref": "#/components/schemas/GapCard"
+      },
+      "type": "array",
+      "title": "Gap Cards"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "label",
+     "size",
+     "color",
+     "keywords",
+     "top_categories",
+     "recent_papers",
+     "crowdedness",
+     "growth",
+     "growth_ci",
+     "reliable",
+     "quadrant",
+     "advice",
+     "open_problems",
+     "stated_per_100",
+     "stability",
+     "monthly",
+     "windows",
+     "growth_text",
+     "representative",
+     "most_cited",
+     "newest",
+     "top_facets",
+     "reading_path",
+     "gap_cards"
+    ],
+    "title": "AreaDetail"
+   },
+   "AreaPapersOut": {
+    "properties": {
+     "total": {
+      "type": "integer",
+      "title": "Total"
+     },
+     "results": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Results"
+     }
+    },
+    "type": "object",
+    "required": [
+     "total",
+     "results"
+    ],
+    "title": "AreaPapersOut"
+   },
+   "AreaRef": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "name"
+    ],
+    "title": "AreaRef"
+   },
+   "AreaSummary": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "label": {
+      "type": "string",
+      "title": "Label",
+      "default": ""
+     },
+     "size": {
+      "type": "integer",
+      "title": "Size",
+      "default": 0
+     },
+     "color": {
+      "type": "string",
+      "title": "Color",
+      "default": ""
+     },
+     "keywords": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Keywords"
+     },
+     "top_categories": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Top Categories"
+     },
+     "recent_papers": {
+      "type": "integer",
+      "title": "Recent Papers",
+      "default": 0
+     },
+     "crowdedness": {
+      "type": "number",
+      "title": "Crowdedness",
+      "default": 0.0
+     },
+     "growth": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Growth"
+     },
+     "growth_ci": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "number"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Growth Ci"
+     },
+     "reliable": {
+      "type": "boolean",
+      "title": "Reliable",
+      "default": false
+     },
+     "quadrant": {
+      "type": "string",
+      "title": "Quadrant",
+      "default": ""
+     },
+     "advice": {
+      "type": "string",
+      "title": "Advice",
+      "default": ""
+     },
+     "open_problems": {
+      "type": "integer",
+      "title": "Open Problems",
+      "default": 0
+     },
+     "stated_per_100": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stated Per 100"
+     },
+     "stability": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Stability"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "name",
+     "label",
+     "size",
+     "color",
+     "keywords",
+     "top_categories",
+     "recent_papers",
+     "crowdedness",
+     "growth",
+     "growth_ci",
+     "reliable",
+     "quadrant",
+     "advice",
+     "open_problems",
+     "stated_per_100",
+     "stability"
+    ],
+    "title": "AreaSummary"
+   },
+   "BibtexIn": {
+    "properties": {
+     "paper_ids": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Paper Ids"
+     },
+     "records": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "Records"
+     }
+    },
+    "type": "object",
+    "title": "BibtexIn"
+   },
+   "BriefIn": {
+    "properties": {
+     "question": {
+      "type": "string",
+      "maxLength": 500,
+      "minLength": 5,
+      "title": "Question"
+     },
+     "use_live": {
+      "type": "boolean",
+      "title": "Use Live",
+      "default": true
+     },
+     "max_papers": {
+      "type": "integer",
+      "maximum": 20.0,
+      "minimum": 4.0,
+      "title": "Max Papers",
+      "default": 12
+     }
+    },
+    "type": "object",
+    "required": [
+     "question"
+    ],
+    "title": "BriefIn"
+   },
+   "ByokIn": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "maxLength": 200,
+      "minLength": 10,
+      "title": "Key"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key"
+    ],
+    "title": "ByokIn"
+   },
+   "Choice": {
+    "properties": {
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "why": {
+      "type": "string",
+      "title": "Why"
+     },
+     "ref": {
+      "type": "string",
+      "title": "Ref"
+     }
+    },
+    "type": "object",
+    "required": [
+     "name",
+     "why",
+     "ref"
+    ],
+    "title": "Choice"
+   },
+   "Concept": {
+    "properties": {
+     "term": {
+      "type": "string",
+      "title": "Term",
+      "default": ""
+     },
+     "meaning": {
+      "type": "string",
+      "title": "Meaning",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "term",
+     "meaning"
+    ],
+    "title": "Concept"
+   },
+   "Evidence": {
+    "properties": {
+     "eid": {
+      "type": "string",
+      "title": "Eid"
+     },
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Year"
+     },
+     "url": {
+      "type": "string",
+      "title": "Url",
+      "default": ""
+     },
+     "role": {
+      "type": "string",
+      "enum": [
+       "states_problem",
+       "related_attempt",
+       "method_use",
+       "task_use",
+       "bridge",
+       "narrow_eval",
+       "conflicting_result",
+       "side_a",
+       "side_b"
+      ],
+      "title": "Role"
+     },
+     "quote": {
+      "type": "string",
+      "title": "Quote",
+      "default": ""
+     },
+     "section": {
+      "type": "string",
+      "title": "Section",
+      "default": ""
+     },
+     "anchor_url": {
+      "type": "string",
+      "title": "Anchor Url",
+      "default": ""
+     },
+     "note": {
+      "type": "string",
+      "title": "Note",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "eid",
+     "paper_id",
+     "title",
+     "role"
+    ],
+    "title": "Evidence"
+   },
+   "Finding": {
+    "properties": {
+     "claim": {
+      "type": "string",
+      "title": "Claim"
+     },
+     "task": {
+      "type": "string",
+      "title": "Task",
+      "default": ""
+     },
+     "dataset": {
+      "type": "string",
+      "title": "Dataset",
+      "default": ""
+     },
+     "metric": {
+      "type": "string",
+      "title": "Metric",
+      "default": ""
+     },
+     "direction": {
+      "type": "string",
+      "title": "Direction",
+      "default": ""
+     },
+     "compared_to": {
+      "type": "string",
+      "title": "Compared To",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "claim",
+     "task",
+     "dataset",
+     "metric",
+     "direction",
+     "compared_to"
+    ],
+    "title": "Finding"
+   },
+   "GapCard": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "type": {
+      "type": "string",
+      "title": "Type"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "statement": {
+      "type": "string",
+      "title": "Statement"
+     },
+     "why_it_matters": {
+      "type": "string",
+      "title": "Why It Matters",
+      "default": ""
+     },
+     "why_it_might_not_be_a_gap": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Why It Might Not Be A Gap"
+     },
+     "first_steps": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "First Steps"
+     },
+     "skills": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Skills"
+     },
+     "data_needs": {
+      "type": "string",
+      "title": "Data Needs",
+      "default": ""
+     },
+     "compute": {
+      "type": "string",
+      "title": "Compute",
+      "default": "unknown"
+     },
+     "feasibility": {
+      "type": "string",
+      "enum": [
+       "low",
+       "medium",
+       "high"
+      ],
+      "title": "Feasibility",
+      "default": "medium"
+     },
+     "beginner_friendly": {
+      "type": "boolean",
+      "title": "Beginner Friendly",
+      "default": false
+     },
+     "evidence": {
+      "items": {
+       "$ref": "#/components/schemas/Evidence"
+      },
+      "type": "array",
+      "title": "Evidence"
+     },
+     "novelty": {
+      "$ref": "#/components/schemas/NoveltyCheck"
+     },
+     "scores": {
+      "$ref": "#/components/schemas/Scores"
+     },
+     "confidence": {
+      "type": "string",
+      "enum": [
+       "low",
+       "medium",
+       "high"
+      ],
+      "title": "Confidence",
+      "default": "low"
+     },
+     "key_terms": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Key Terms"
+     },
+     "stats": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Stats"
+     },
+     "scope": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Scope"
+     },
+     "generated_by": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Generated By"
+     },
+     "novelty_queries": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Novelty Queries"
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At"
+     },
+     "version": {
+      "type": "integer",
+      "title": "Version",
+      "default": 1
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "type",
+     "title",
+     "statement",
+     "why_it_might_not_be_a_gap",
+     "evidence"
+    ],
+    "title": "GapCard"
+   },
+   "GapPatch": {
+    "properties": {
+     "status": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     }
+    },
+    "type": "object",
+    "title": "GapPatch"
+   },
+   "GapsOut": {
+    "properties": {
+     "ws_key": {
+      "type": "string",
+      "title": "Ws Key",
+      "default": ""
+     },
+     "query": {
+      "type": "string",
+      "title": "Query",
+      "default": ""
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At",
+      "default": 0.0
+     },
+     "cards": {
+      "items": {
+       "$ref": "#/components/schemas/GapCard"
+      },
+      "type": "array",
+      "title": "Cards"
+     },
+     "already_explored": {
+      "items": {
+       "$ref": "#/components/schemas/GapCard"
+      },
+      "type": "array",
+      "title": "Already Explored"
+     },
+     "area_cards": {
+      "items": {
+       "$ref": "#/components/schemas/GapCard"
+      },
+      "type": "array",
+      "title": "Area Cards"
+     },
+     "stats": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Stats"
+     }
+    },
+    "type": "object",
+    "required": [
+     "ws_key",
+     "query",
+     "created_at",
+     "cards",
+     "already_explored",
+     "area_cards",
+     "stats"
+    ],
+    "title": "GapsOut"
+   },
+   "GrowthWindow": {
+    "properties": {
+     "months": {
+      "type": "integer",
+      "title": "Months"
+     },
+     "recent_count": {
+      "type": "integer",
+      "title": "Recent Count",
+      "default": 0
+     },
+     "previous_count": {
+      "type": "integer",
+      "title": "Previous Count",
+      "default": 0
+     },
+     "relative_growth": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Relative Growth"
+     },
+     "ci": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "number"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ci"
+     },
+     "direction": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Direction"
+     },
+     "passes_gate": {
+      "type": "boolean",
+      "title": "Passes Gate",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "months",
+     "recent_count",
+     "previous_count",
+     "relative_growth",
+     "ci",
+     "direction",
+     "passes_gate"
+    ],
+    "title": "GrowthWindow"
+   },
+   "HTTPValidationError": {
+    "properties": {
+     "detail": {
+      "items": {
+       "$ref": "#/components/schemas/ValidationError"
+      },
+      "type": "array",
+      "title": "Detail"
+     }
+    },
+    "type": "object",
+    "title": "HTTPValidationError"
+   },
+   "ImportIn": {
+    "properties": {
+     "data": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Data"
+     }
+    },
+    "type": "object",
+    "required": [
+     "data"
+    ],
+    "title": "ImportIn"
+   },
+   "JobOut": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "kind": {
+      "type": "string",
+      "title": "Kind"
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "queued",
+       "running",
+       "done",
+       "error"
+      ],
+      "title": "Status"
+     },
+     "progress": {
+      "type": "number",
+      "title": "Progress"
+     },
+     "message": {
+      "type": "string",
+      "title": "Message"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error"
+     },
+     "error_kind": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error Kind"
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At"
+     },
+     "updated_at": {
+      "type": "number",
+      "title": "Updated At"
+     },
+     "meta": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Meta"
+     },
+     "result": {
+      "title": "Result"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "kind",
+     "status",
+     "progress",
+     "message",
+     "error",
+     "error_kind",
+     "created_at",
+     "updated_at",
+     "meta",
+     "result"
+    ],
+    "title": "JobOut"
+   },
+   "JobStarted": {
+    "properties": {
+     "ready": {
+      "type": "boolean",
+      "title": "Ready"
+     },
+     "key": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Key"
+     },
+     "job": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/JobOut"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "ready",
+     "key",
+     "job"
+    ],
+    "title": "JobStarted",
+    "description": "Either the finished resource is already available (``ready``), or a job is building it."
+   },
+   "JudgeCandidate": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "abstract": {
+      "type": "string",
+      "title": "Abstract",
+      "default": ""
+     },
+     "date": {
+      "type": "string",
+      "title": "Date",
+      "default": ""
+     },
+     "primary_category": {
+      "type": "string",
+      "title": "Primary Category",
+      "default": ""
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "title",
+     "abstract",
+     "date",
+     "primary_category",
+     "grade"
+    ],
+    "title": "JudgeCandidate"
+   },
+   "JudgeIn": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Query"
+     },
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "grade": {
+      "anyOf": [
+       {
+        "type": "integer",
+        "maximum": 2.0,
+        "minimum": 0.0
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Grade"
+     }
+    },
+    "type": "object",
+    "required": [
+     "query",
+     "paper_id"
+    ],
+    "title": "JudgeIn"
+   },
+   "JudgePool": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "title": "Query"
+     },
+     "candidates": {
+      "items": {
+       "$ref": "#/components/schemas/JudgeCandidate"
+      },
+      "type": "array",
+      "title": "Candidates"
+     }
+    },
+    "type": "object",
+    "required": [
+     "query",
+     "candidates"
+    ],
+    "title": "JudgePool"
+   },
+   "JudgeQuery": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "title": "Query"
+     },
+     "area": {
+      "type": "string",
+      "title": "Area",
+      "default": ""
+     },
+     "n_judged": {
+      "type": "integer",
+      "title": "N Judged",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "query",
+     "area",
+     "n_judged"
+    ],
+    "title": "JudgeQuery"
+   },
+   "LLMStatus": {
+    "properties": {
+     "provider": {
+      "type": "string",
+      "title": "Provider"
+     },
+     "available": {
+      "type": "boolean",
+      "title": "Available"
+     },
+     "byok_active": {
+      "type": "boolean",
+      "title": "Byok Active",
+      "default": false
+     },
+     "allow_byok": {
+      "type": "boolean",
+      "title": "Allow Byok",
+      "default": false
+     },
+     "providers": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Providers"
+     }
+    },
+    "type": "object",
+    "required": [
+     "provider",
+     "available",
+     "byok_active",
+     "allow_byok",
+     "providers"
+    ],
+    "title": "LLMStatus"
+   },
+   "MethodologyOut": {
+    "properties": {
+     "release": {
+      "$ref": "#/components/schemas/ReleaseInfo"
+     },
+     "manifest": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Manifest"
+     },
+     "validation": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Validation"
+     },
+     "backends": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Backends"
+     },
+     "params": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Params"
+     },
+     "coverage": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Coverage"
+     },
+     "judged_queries": {
+      "type": "integer",
+      "title": "Judged Queries",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "release",
+     "manifest",
+     "validation",
+     "backends",
+     "params",
+     "coverage",
+     "judged_queries"
+    ],
+    "title": "MethodologyOut"
+   },
+   "Milestone": {
+    "properties": {
+     "weeks": {
+      "type": "string",
+      "title": "Weeks"
+     },
+     "goal": {
+      "type": "string",
+      "title": "Goal"
+     },
+     "tasks": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Tasks"
+     },
+     "deliverable": {
+      "type": "string",
+      "title": "Deliverable"
+     }
+    },
+    "type": "object",
+    "required": [
+     "weeks",
+     "goal",
+     "tasks",
+     "deliverable"
+    ],
+    "title": "Milestone"
+   },
+   "NoteIn": {
+    "properties": {
+     "body": {
+      "type": "string",
+      "maxLength": 10000,
+      "title": "Body"
+     }
+    },
+    "type": "object",
+    "required": [
+     "body"
+    ],
+    "title": "NoteIn"
+   },
+   "NoveltyCheck": {
+    "properties": {
+     "status": {
+      "type": "string",
+      "enum": [
+       "not_checked",
+       "novel",
+       "partially_explored",
+       "already_addressed"
+      ],
+      "title": "Status",
+      "default": "not_checked"
+     },
+     "scope": {
+      "type": "string",
+      "enum": [
+       "none",
+       "collection",
+       "collection+live"
+      ],
+      "title": "Scope",
+      "default": "none"
+     },
+     "checked_at": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Checked At"
+     },
+     "queries": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Queries"
+     },
+     "n_candidates": {
+      "type": "integer",
+      "title": "N Candidates",
+      "default": 0
+     },
+     "hits": {
+      "items": {
+       "$ref": "#/components/schemas/NoveltyHit"
+      },
+      "type": "array",
+      "title": "Hits"
+     },
+     "method": {
+      "type": "string",
+      "enum": [
+       "llm",
+       "heuristic",
+       "none"
+      ],
+      "title": "Method",
+      "default": "none"
+     }
+    },
+    "type": "object",
+    "title": "NoveltyCheck"
+   },
+   "NoveltyHit": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "url": {
+      "type": "string",
+      "title": "Url"
+     },
+     "date": {
+      "type": "string",
+      "title": "Date",
+      "default": ""
+     },
+     "verdict": {
+      "type": "string",
+      "enum": [
+       "addresses",
+       "partially",
+       "unrelated",
+       "unjudged"
+      ],
+      "title": "Verdict"
+     },
+     "reason": {
+      "type": "string",
+      "title": "Reason",
+      "default": ""
+     },
+     "quote": {
+      "type": "string",
+      "title": "Quote",
+      "default": ""
+     },
+     "score": {
+      "type": "number",
+      "title": "Score",
+      "default": 0.0
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "title",
+     "url",
+     "verdict"
+    ],
+    "title": "NoveltyHit"
+   },
+   "PaperDetail": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "arxiv_id": {
+      "type": "string",
+      "title": "Arxiv Id",
+      "default": ""
+     },
+     "doi": {
+      "type": "string",
+      "title": "Doi",
+      "default": ""
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "abstract": {
+      "type": "string",
+      "title": "Abstract",
+      "default": ""
+     },
+     "authors": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Authors"
+     },
+     "venue": {
+      "type": "string",
+      "title": "Venue",
+      "default": ""
+     },
+     "venue_type": {
+      "type": "string",
+      "title": "Venue Type",
+      "default": ""
+     },
+     "date": {
+      "type": "string",
+      "title": "Date",
+      "default": ""
+     },
+     "primary_category": {
+      "type": "string",
+      "title": "Primary Category",
+      "default": ""
+     },
+     "categories": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Categories"
+     },
+     "journal_ref": {
+      "type": "string",
+      "title": "Journal Ref",
+      "default": ""
+     },
+     "license": {
+      "type": "string",
+      "title": "License",
+      "default": ""
+     },
+     "cited_by_count": {
+      "type": "integer",
+      "title": "Cited By Count",
+      "default": 0
+     },
+     "reference_count": {
+      "type": "integer",
+      "title": "Reference Count",
+      "default": 0
+     },
+     "citation_velocity": {
+      "type": "number",
+      "title": "Citation Velocity",
+      "default": 0.0
+     },
+     "area": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/AreaRef"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "in_collection": {
+      "type": "boolean",
+      "title": "In Collection",
+      "default": false
+     },
+     "is_survey": {
+      "type": "boolean",
+      "title": "Is Survey",
+      "default": false
+     },
+     "sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Sources"
+     },
+     "links": {
+      "$ref": "#/components/schemas/PaperLinks"
+     },
+     "facets": {
+      "additionalProperties": {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Facets"
+     },
+     "problems": {
+      "items": {
+       "$ref": "#/components/schemas/StatedProblem"
+      },
+      "type": "array",
+      "title": "Problems"
+     },
+     "findings": {
+      "items": {
+       "$ref": "#/components/schemas/Finding"
+      },
+      "type": "array",
+      "title": "Findings"
+     },
+     "profile": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/PaperProfile"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "arxiv_id",
+     "doi",
+     "title",
+     "abstract",
+     "authors",
+     "venue",
+     "venue_type",
+     "date",
+     "primary_category",
+     "categories",
+     "journal_ref",
+     "license",
+     "cited_by_count",
+     "reference_count",
+     "citation_velocity",
+     "area",
+     "in_collection",
+     "is_survey",
+     "sources",
+     "links",
+     "facets",
+     "problems",
+     "findings",
+     "profile"
+    ],
+    "title": "PaperDetail"
+   },
+   "PaperHit": {
+    "properties": {
+     "rank": {
+      "type": "integer",
+      "title": "Rank",
+      "default": 0
+     },
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "arxiv_id": {
+      "type": "string",
+      "title": "Arxiv Id",
+      "default": ""
+     },
+     "doi": {
+      "type": "string",
+      "title": "Doi",
+      "default": ""
+     },
+     "url": {
+      "type": "string",
+      "title": "Url",
+      "default": ""
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "abstract": {
+      "type": "string",
+      "title": "Abstract",
+      "default": ""
+     },
+     "authors": {
+      "type": "string",
+      "title": "Authors",
+      "default": ""
+     },
+     "venue": {
+      "type": "string",
+      "title": "Venue",
+      "default": ""
+     },
+     "primary_category": {
+      "type": "string",
+      "title": "Primary Category",
+      "default": ""
+     },
+     "date": {
+      "type": "string",
+      "title": "Date",
+      "default": ""
+     },
+     "area_id": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Area Id"
+     },
+     "area_name": {
+      "type": "string",
+      "title": "Area Name",
+      "default": ""
+     },
+     "score": {
+      "type": "number",
+      "title": "Score",
+      "default": 0.0
+     },
+     "sim": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sim"
+     },
+     "cited_by_count": {
+      "type": "integer",
+      "title": "Cited By Count",
+      "default": 0
+     },
+     "citation_velocity": {
+      "type": "number",
+      "title": "Citation Velocity",
+      "default": 0.0
+     },
+     "matched_terms": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Matched Terms"
+     },
+     "match": {
+      "type": "string",
+      "title": "Match",
+      "default": "related"
+     },
+     "match_level": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Match Level"
+     },
+     "sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Sources"
+     },
+     "is_new": {
+      "type": "boolean",
+      "title": "Is New",
+      "default": false
+     },
+     "in_collection": {
+      "type": "boolean",
+      "title": "In Collection",
+      "default": true
+     }
+    },
+    "type": "object",
+    "required": [
+     "rank",
+     "paper_id",
+     "arxiv_id",
+     "doi",
+     "url",
+     "title",
+     "abstract",
+     "authors",
+     "venue",
+     "primary_category",
+     "date",
+     "area_id",
+     "area_name",
+     "score",
+     "sim",
+     "cited_by_count",
+     "citation_velocity",
+     "matched_terms",
+     "match",
+     "match_level",
+     "sources",
+     "is_new",
+     "in_collection"
+    ],
+    "title": "PaperHit"
+   },
+   "PaperLinks": {
+    "properties": {
+     "abs": {
+      "type": "string",
+      "title": "Abs",
+      "default": ""
+     },
+     "pdf": {
+      "type": "string",
+      "title": "Pdf",
+      "default": ""
+     },
+     "html": {
+      "type": "string",
+      "title": "Html",
+      "default": ""
+     },
+     "doi": {
+      "type": "string",
+      "title": "Doi",
+      "default": ""
+     },
+     "openalex": {
+      "type": "string",
+      "title": "Openalex",
+      "default": ""
+     },
+     "semantic_scholar": {
+      "type": "string",
+      "title": "Semantic Scholar",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "abs",
+     "pdf",
+     "html",
+     "doi",
+     "openalex",
+     "semantic_scholar"
+    ],
+    "title": "PaperLinks"
+   },
+   "PaperPatch": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "status": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Status"
+     },
+     "tags": {
+      "anyOf": [
+       {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Tags"
+     },
+     "note": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Note"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id"
+    ],
+    "title": "PaperPatch"
+   },
+   "PaperProfile": {
+    "properties": {
+     "summary": {
+      "type": "string",
+      "title": "Summary",
+      "default": ""
+     },
+     "code_url": {
+      "type": "string",
+      "title": "Code Url",
+      "default": ""
+     },
+     "data_released": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Data Released"
+     },
+     "compute": {
+      "type": "string",
+      "title": "Compute",
+      "default": "unknown"
+     },
+     "evaluation": {
+      "additionalProperties": {
+       "anyOf": [
+        {
+         "type": "boolean"
+        },
+        {
+         "type": "null"
+        }
+       ]
+      },
+      "type": "object",
+      "title": "Evaluation"
+     },
+     "mode": {
+      "type": "string",
+      "title": "Mode",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "summary",
+     "code_url",
+     "data_released",
+     "compute",
+     "evaluation",
+     "mode"
+    ],
+    "title": "PaperProfile"
+   },
+   "PlanDocument": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "gap_id": {
+      "type": "string",
+      "title": "Gap Id"
+     },
+     "gap_snapshot": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Gap Snapshot"
+     },
+     "plan": {
+      "$ref": "#/components/schemas/ResearchPlan"
+     },
+     "references": {
+      "items": {
+       "additionalProperties": true,
+       "type": "object"
+      },
+      "type": "array",
+      "title": "References"
+     },
+     "computed": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Computed"
+     },
+     "inputs": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Inputs"
+     },
+     "warnings": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Warnings"
+     },
+     "generated_by": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Generated By"
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "gap_id",
+     "gap_snapshot",
+     "plan",
+     "references",
+     "computed",
+     "inputs"
+    ],
+    "title": "PlanDocument"
+   },
+   "PlanExportIn": {
+    "properties": {
+     "doc": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Doc"
+     },
+     "format": {
+      "type": "string",
+      "enum": [
+       "markdown",
+       "json",
+       "bibtex",
+       "email"
+      ],
+      "title": "Format",
+      "default": "markdown"
+     }
+    },
+    "type": "object",
+    "required": [
+     "doc"
+    ],
+    "title": "PlanExportIn"
+   },
+   "PlanIn": {
+    "properties": {
+     "card": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Card"
+     },
+     "ws_key": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ws Key"
+     },
+     "weeks": {
+      "type": "integer",
+      "title": "Weeks",
+      "default": 10
+     },
+     "background": {
+      "type": "string",
+      "maxLength": 2000,
+      "title": "Background",
+      "default": ""
+     },
+     "compute_access": {
+      "type": "string",
+      "title": "Compute Access",
+      "default": "Laptop only"
+     },
+     "goal": {
+      "type": "string",
+      "title": "Goal",
+      "default": "Bachelor/master thesis"
+     },
+     "attempt": {
+      "type": "integer",
+      "title": "Attempt",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "card"
+    ],
+    "title": "PlanIn"
+   },
+   "PlanOptions": {
+    "properties": {
+     "weeks_options": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "title": "Weeks Options"
+     },
+     "default_weeks": {
+      "type": "integer",
+      "title": "Default Weeks"
+     },
+     "goals": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Goals"
+     },
+     "compute": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Compute"
+     },
+     "max_background_chars": {
+      "type": "integer",
+      "title": "Max Background Chars"
+     }
+    },
+    "type": "object",
+    "required": [
+     "weeks_options",
+     "default_weeks",
+     "goals",
+     "compute",
+     "max_background_chars"
+    ],
+    "title": "PlanOptions"
+   },
+   "ProjectCounts": {
+    "properties": {
+     "papers": {
+      "type": "integer",
+      "title": "Papers",
+      "default": 0
+     },
+     "gaps": {
+      "type": "integer",
+      "title": "Gaps",
+      "default": 0
+     },
+     "plans": {
+      "type": "integer",
+      "title": "Plans",
+      "default": 0
+     },
+     "notes": {
+      "type": "integer",
+      "title": "Notes",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "papers",
+     "gaps",
+     "plans",
+     "notes"
+    ],
+    "title": "ProjectCounts"
+   },
+   "ProjectDetail": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "topic_query": {
+      "type": "string",
+      "title": "Topic Query",
+      "default": ""
+     },
+     "scope_name": {
+      "type": "string",
+      "title": "Scope Name",
+      "default": ""
+     },
+     "bundle_version": {
+      "type": "string",
+      "title": "Bundle Version",
+      "default": ""
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At",
+      "default": ""
+     },
+     "updated_at": {
+      "type": "string",
+      "title": "Updated At",
+      "default": ""
+     },
+     "counts": {
+      "$ref": "#/components/schemas/ProjectCounts"
+     },
+     "papers": {
+      "items": {
+       "$ref": "#/components/schemas/ProjectPaper"
+      },
+      "type": "array",
+      "title": "Papers"
+     },
+     "gaps": {
+      "items": {
+       "$ref": "#/components/schemas/ProjectGap"
+      },
+      "type": "array",
+      "title": "Gaps"
+     },
+     "plans": {
+      "items": {
+       "$ref": "#/components/schemas/ProjectPlan"
+      },
+      "type": "array",
+      "title": "Plans"
+     },
+     "notes": {
+      "items": {
+       "$ref": "#/components/schemas/ProjectNote"
+      },
+      "type": "array",
+      "title": "Notes"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "title",
+     "topic_query",
+     "scope_name",
+     "bundle_version",
+     "created_at",
+     "updated_at",
+     "counts",
+     "papers",
+     "gaps",
+     "plans",
+     "notes"
+    ],
+    "title": "ProjectDetail"
+   },
+   "ProjectGap": {
+    "properties": {
+     "gap_id": {
+      "type": "string",
+      "title": "Gap Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title",
+      "default": ""
+     },
+     "status": {
+      "type": "string",
+      "title": "Status",
+      "default": "considering"
+     },
+     "note": {
+      "type": "string",
+      "title": "Note",
+      "default": ""
+     },
+     "added_at": {
+      "type": "string",
+      "title": "Added At",
+      "default": ""
+     },
+     "payload": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Payload"
+     }
+    },
+    "type": "object",
+    "required": [
+     "gap_id",
+     "title",
+     "status",
+     "note",
+     "added_at",
+     "payload"
+    ],
+    "title": "ProjectGap"
+   },
+   "ProjectIn": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "maxLength": 200,
+      "title": "Title",
+      "default": "My research project"
+     },
+     "topic_query": {
+      "type": "string",
+      "maxLength": 300,
+      "title": "Topic Query",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "title": "ProjectIn"
+   },
+   "ProjectNote": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "body": {
+      "type": "string",
+      "title": "Body"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At",
+      "default": ""
+     },
+     "updated_at": {
+      "type": "string",
+      "title": "Updated At",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "body",
+     "created_at",
+     "updated_at"
+    ],
+    "title": "ProjectNote"
+   },
+   "ProjectPaper": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title",
+      "default": ""
+     },
+     "year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Year"
+     },
+     "status": {
+      "type": "string",
+      "title": "Status",
+      "default": "to_read"
+     },
+     "tags": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Tags"
+     },
+     "note": {
+      "type": "string",
+      "title": "Note",
+      "default": ""
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": ""
+     },
+     "added_at": {
+      "type": "string",
+      "title": "Added At",
+      "default": ""
+     },
+     "payload": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Payload"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "title",
+     "year",
+     "status",
+     "tags",
+     "note",
+     "source",
+     "added_at",
+     "payload"
+    ],
+    "title": "ProjectPaper"
+   },
+   "ProjectPatch": {
+    "properties": {
+     "title": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 200
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Title"
+     },
+     "topic_query": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 300
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Topic Query"
+     }
+    },
+    "type": "object",
+    "title": "ProjectPatch"
+   },
+   "ProjectPlan": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "gap_id": {
+      "type": "string",
+      "title": "Gap Id",
+      "default": ""
+     },
+     "label": {
+      "type": "string",
+      "title": "Label",
+      "default": ""
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At",
+      "default": ""
+     },
+     "doc": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Doc"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "gap_id",
+     "label",
+     "created_at",
+     "doc"
+    ],
+    "title": "ProjectPlan"
+   },
+   "ProjectSummary": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "topic_query": {
+      "type": "string",
+      "title": "Topic Query",
+      "default": ""
+     },
+     "scope_name": {
+      "type": "string",
+      "title": "Scope Name",
+      "default": ""
+     },
+     "bundle_version": {
+      "type": "string",
+      "title": "Bundle Version",
+      "default": ""
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At",
+      "default": ""
+     },
+     "updated_at": {
+      "type": "string",
+      "title": "Updated At",
+      "default": ""
+     },
+     "counts": {
+      "$ref": "#/components/schemas/ProjectCounts"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "title",
+     "topic_query",
+     "scope_name",
+     "bundle_version",
+     "created_at",
+     "updated_at",
+     "counts"
+    ],
+    "title": "ProjectSummary"
+   },
+   "QuotaRow": {
+    "properties": {
+     "route": {
+      "type": "string",
+      "title": "Route"
+     },
+     "used_today": {
+      "type": "integer",
+      "title": "Used Today",
+      "default": 0
+     },
+     "remaining_today": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Remaining Today"
+     },
+     "limit_per_day": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Limit Per Day"
+     }
+    },
+    "type": "object",
+    "required": [
+     "route",
+     "used_today",
+     "remaining_today",
+     "limit_per_day"
+    ],
+    "title": "QuotaRow"
+   },
+   "ReadingItem": {
+    "properties": {
+     "step": {
+      "type": "string",
+      "title": "Step"
+     },
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "year": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Year"
+     },
+     "url": {
+      "type": "string",
+      "title": "Url",
+      "default": ""
+     },
+     "cited_by_count": {
+      "type": "integer",
+      "title": "Cited By Count",
+      "default": 0
+     },
+     "reason": {
+      "type": "string",
+      "title": "Reason",
+      "default": ""
+     },
+     "in_corpus": {
+      "type": "boolean",
+      "title": "In Corpus",
+      "default": false
+     },
+     "is_survey": {
+      "type": "boolean",
+      "title": "Is Survey",
+      "default": false
+     },
+     "openalex_id": {
+      "type": "string",
+      "title": "Openalex Id",
+      "default": ""
+     },
+     "why_read": {
+      "type": "string",
+      "title": "Why Read",
+      "default": ""
+     },
+     "what_you_learn": {
+      "type": "string",
+      "title": "What You Learn",
+      "default": ""
+     },
+     "level": {
+      "type": "string",
+      "title": "Level",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "step",
+     "paper_id",
+     "title",
+     "year",
+     "url",
+     "cited_by_count",
+     "reason",
+     "in_corpus",
+     "is_survey",
+     "openalex_id",
+     "why_read",
+     "what_you_learn",
+     "level"
+    ],
+    "title": "ReadingItem"
+   },
+   "RecentTopic": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "query": {
+      "type": "string",
+      "title": "Query"
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At"
+     },
+     "n_papers": {
+      "type": "integer",
+      "title": "N Papers",
+      "default": 0
+     },
+     "n_subtopics": {
+      "type": "integer",
+      "title": "N Subtopics",
+      "default": 0
+     },
+     "has_gaps": {
+      "type": "boolean",
+      "title": "Has Gaps",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "key",
+     "query",
+     "created_at",
+     "n_papers",
+     "n_subtopics",
+     "has_gaps"
+    ],
+    "title": "RecentTopic"
+   },
+   "RecheckIn": {
+    "properties": {
+     "ws_key": {
+      "type": "string",
+      "title": "Ws Key"
+     },
+     "card": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Card"
+     }
+    },
+    "type": "object",
+    "required": [
+     "ws_key",
+     "card"
+    ],
+    "title": "RecheckIn"
+   },
+   "ReleaseInfo": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id",
+      "default": ""
+     },
+     "generated_at": {
+      "type": "string",
+      "title": "Generated At",
+      "default": ""
+     },
+     "n_papers": {
+      "type": "integer",
+      "title": "N Papers",
+      "default": 0
+     },
+     "date_from": {
+      "type": "string",
+      "title": "Date From",
+      "default": ""
+     },
+     "date_to": {
+      "type": "string",
+      "title": "Date To",
+      "default": ""
+     },
+     "n_categories": {
+      "type": "integer",
+      "title": "N Categories",
+      "default": 0
+     },
+     "source": {
+      "type": "string",
+      "title": "Source",
+      "default": ""
+     },
+     "synthetic": {
+      "type": "boolean",
+      "title": "Synthetic",
+      "default": false
+     },
+     "embedding_model": {
+      "type": "string",
+      "title": "Embedding Model",
+      "default": ""
+     },
+     "semantic_search": {
+      "type": "boolean",
+      "title": "Semantic Search",
+      "default": true
+     },
+     "index": {
+      "type": "string",
+      "title": "Index",
+      "default": ""
+     },
+     "data_age_days": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Data Age Days"
+     },
+     "stale": {
+      "type": "boolean",
+      "title": "Stale",
+      "default": false
+     },
+     "n_areas": {
+      "type": "integer",
+      "title": "N Areas",
+      "default": 0
+     },
+     "n_extracted": {
+      "type": "integer",
+      "title": "N Extracted",
+      "default": 0
+     },
+     "n_problems": {
+      "type": "integer",
+      "title": "N Problems",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "generated_at",
+     "n_papers",
+     "date_from",
+     "date_to",
+     "n_categories",
+     "source",
+     "synthetic",
+     "embedding_model",
+     "semantic_search",
+     "index",
+     "data_age_days",
+     "stale",
+     "n_areas",
+     "n_extracted",
+     "n_problems"
+    ],
+    "title": "ReleaseInfo"
+   },
+   "ReleaseRow": {
+    "properties": {
+     "id": {
+      "type": "string",
+      "title": "Id"
+     },
+     "created_at": {
+      "type": "string",
+      "title": "Created At",
+      "default": ""
+     },
+     "current": {
+      "type": "boolean",
+      "title": "Current",
+      "default": false
+     },
+     "serving": {
+      "type": "boolean",
+      "title": "Serving",
+      "default": false
+     },
+     "n_papers": {
+      "type": "integer",
+      "title": "N Papers",
+      "default": 0
+     },
+     "embedding_model": {
+      "type": "string",
+      "title": "Embedding Model",
+      "default": ""
+     },
+     "gates_passed": {
+      "anyOf": [
+       {
+        "type": "boolean"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Gates Passed"
+     },
+     "ndcg_at_10": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Ndcg At 10"
+     },
+     "size_mb": {
+      "type": "number",
+      "title": "Size Mb",
+      "default": 0.0
+     },
+     "files": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Files"
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "created_at",
+     "current",
+     "serving",
+     "n_papers",
+     "embedding_model",
+     "gates_passed",
+     "ndcg_at_10",
+     "size_mb",
+     "files"
+    ],
+    "title": "ReleaseRow"
+   },
+   "ResearchPlan": {
+    "properties": {
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "research_question": {
+      "type": "string",
+      "title": "Research Question"
+     },
+     "sub_questions": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Sub Questions"
+     },
+     "hypotheses": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Hypotheses"
+     },
+     "why_it_matters": {
+      "type": "string",
+      "title": "Why It Matters"
+     },
+     "contribution_type": {
+      "type": "string",
+      "enum": [
+       "new_method",
+       "empirical_study",
+       "benchmark_or_dataset",
+       "reproduction",
+       "system_or_tool",
+       "analysis"
+      ],
+      "title": "Contribution Type"
+     },
+     "method_sketch": {
+      "type": "string",
+      "title": "Method Sketch"
+     },
+     "baselines": {
+      "items": {
+       "$ref": "#/components/schemas/Choice"
+      },
+      "type": "array",
+      "title": "Baselines"
+     },
+     "datasets": {
+      "items": {
+       "$ref": "#/components/schemas/Choice"
+      },
+      "type": "array",
+      "title": "Datasets"
+     },
+     "metrics": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Metrics"
+     },
+     "experiments": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Experiments"
+     },
+     "minimum_viable_result": {
+      "type": "string",
+      "title": "Minimum Viable Result"
+     },
+     "stretch_goals": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Stretch Goals"
+     },
+     "milestones": {
+      "items": {
+       "$ref": "#/components/schemas/Milestone"
+      },
+      "type": "array",
+      "title": "Milestones"
+     },
+     "risks": {
+      "items": {
+       "$ref": "#/components/schemas/Risk"
+      },
+      "type": "array",
+      "title": "Risks"
+     },
+     "skills_to_learn": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Skills To Learn"
+     },
+     "compute_estimate": {
+      "type": "string",
+      "title": "Compute Estimate"
+     },
+     "questions_for_supervisor": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Questions For Supervisor"
+     },
+     "references_used": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "References Used"
+     }
+    },
+    "type": "object",
+    "required": [
+     "title",
+     "research_question",
+     "sub_questions",
+     "hypotheses",
+     "why_it_matters",
+     "contribution_type",
+     "method_sketch",
+     "baselines",
+     "datasets",
+     "metrics",
+     "experiments",
+     "minimum_viable_result",
+     "stretch_goals",
+     "milestones",
+     "risks",
+     "skills_to_learn",
+     "compute_estimate",
+     "questions_for_supervisor",
+     "references_used"
+    ],
+    "title": "ResearchPlan"
+   },
+   "Risk": {
+    "properties": {
+     "risk": {
+      "type": "string",
+      "title": "Risk"
+     },
+     "mitigation": {
+      "type": "string",
+      "title": "Mitigation"
+     }
+    },
+    "type": "object",
+    "required": [
+     "risk",
+     "mitigation"
+    ],
+    "title": "Risk"
+   },
+   "Scores": {
+    "properties": {
+     "evidence": {
+      "type": "number",
+      "title": "Evidence",
+      "default": 0.0
+     },
+     "novelty": {
+      "type": "number",
+      "title": "Novelty",
+      "default": 0.0
+     },
+     "feasibility": {
+      "type": "number",
+      "title": "Feasibility",
+      "default": 0.0
+     },
+     "specificity": {
+      "type": "number",
+      "title": "Specificity",
+      "default": 0.0
+     },
+     "recency": {
+      "type": "number",
+      "title": "Recency",
+      "default": 0.0
+     },
+     "total": {
+      "type": "number",
+      "title": "Total",
+      "default": 0.0
+     },
+     "explain": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Explain"
+     }
+    },
+    "type": "object",
+    "title": "Scores"
+   },
+   "SearchOut": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "title": "Query"
+     },
+     "mode": {
+      "type": "string",
+      "title": "Mode",
+      "default": ""
+     },
+     "degraded": {
+      "type": "boolean",
+      "title": "Degraded",
+      "default": false
+     },
+     "expansion": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Expansion"
+     },
+     "results": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Results"
+     },
+     "areas": {
+      "items": {
+       "$ref": "#/components/schemas/AreaCount"
+      },
+      "type": "array",
+      "title": "Areas"
+     },
+     "n_exact": {
+      "type": "integer",
+      "title": "N Exact",
+      "default": 0
+     },
+     "n_related": {
+      "type": "integer",
+      "title": "N Related",
+      "default": 0
+     },
+     "n_exact_total": {
+      "type": "integer",
+      "title": "N Exact Total",
+      "default": 0
+     },
+     "about_total": {
+      "type": "integer",
+      "title": "About Total",
+      "default": 0
+     },
+     "source_totals": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Source Totals"
+     },
+     "source_status": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Source Status"
+     },
+     "has_more": {
+      "type": "boolean",
+      "title": "Has More",
+      "default": false
+     },
+     "live": {
+      "type": "boolean",
+      "title": "Live",
+      "default": false
+     },
+     "live_seconds": {
+      "type": "number",
+      "title": "Live Seconds",
+      "default": 0.0
+     },
+     "n_found_online": {
+      "type": "integer",
+      "title": "N Found Online",
+      "default": 0
+     },
+     "ambiguous": {
+      "type": "boolean",
+      "title": "Ambiguous",
+      "default": false
+     },
+     "elapsed_ms": {
+      "type": "integer",
+      "title": "Elapsed Ms",
+      "default": 0
+     }
+    },
+    "type": "object",
+    "required": [
+     "query",
+     "mode",
+     "degraded",
+     "expansion",
+     "results",
+     "areas",
+     "n_exact",
+     "n_related",
+     "n_exact_total",
+     "about_total",
+     "source_totals",
+     "source_status",
+     "has_more",
+     "live",
+     "live_seconds",
+     "n_found_online",
+     "ambiguous",
+     "elapsed_ms"
+    ],
+    "title": "SearchOut"
+   },
+   "SettingsOut": {
+    "properties": {
+     "llm": {
+      "$ref": "#/components/schemas/LLMStatus"
+     },
+     "quota": {
+      "items": {
+       "$ref": "#/components/schemas/QuotaRow"
+      },
+      "type": "array",
+      "title": "Quota"
+     },
+     "tasks": {
+      "items": {
+       "$ref": "#/components/schemas/TaskRoute"
+      },
+      "type": "array",
+      "title": "Tasks"
+     },
+     "config_path": {
+      "type": "string",
+      "title": "Config Path",
+      "default": ""
+     },
+     "release_pin": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Release Pin"
+     },
+     "db": {
+      "type": "string",
+      "title": "Db",
+      "default": ""
+     },
+     "live_sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Live Sources"
+     }
+    },
+    "type": "object",
+    "required": [
+     "llm",
+     "quota",
+     "tasks",
+     "config_path",
+     "release_pin",
+     "db",
+     "live_sources"
+    ],
+    "title": "SettingsOut"
+   },
+   "SimilarOut": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title",
+      "default": ""
+     },
+     "results": {
+      "items": {
+       "$ref": "#/components/schemas/PaperHit"
+      },
+      "type": "array",
+      "title": "Results"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "title",
+     "results"
+    ],
+    "title": "SimilarOut"
+   },
+   "StatedProblem": {
+    "properties": {
+     "problem_id": {
+      "type": "string",
+      "title": "Problem Id"
+     },
+     "statement": {
+      "type": "string",
+      "title": "Statement"
+     },
+     "quote": {
+      "type": "string",
+      "title": "Quote",
+      "default": ""
+     },
+     "section": {
+      "type": "string",
+      "title": "Section",
+      "default": ""
+     },
+     "section_kind": {
+      "type": "string",
+      "title": "Section Kind",
+      "default": ""
+     },
+     "problem_type": {
+      "type": "string",
+      "title": "Problem Type",
+      "default": ""
+     },
+     "anchor_url": {
+      "type": "string",
+      "title": "Anchor Url",
+      "default": ""
+     },
+     "verified": {
+      "type": "boolean",
+      "title": "Verified",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "problem_id",
+     "statement",
+     "quote",
+     "section",
+     "section_kind",
+     "problem_type",
+     "anchor_url",
+     "verified"
+    ],
+    "title": "StatedProblem"
+   },
+   "StatusOut": {
+    "properties": {
+     "ready": {
+      "type": "boolean",
+      "title": "Ready"
+     },
+     "loading": {
+      "type": "boolean",
+      "title": "Loading"
+     },
+     "error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Error"
+     },
+     "release": {
+      "anyOf": [
+       {
+        "$ref": "#/components/schemas/ReleaseInfo"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     "live_search": {
+      "type": "boolean",
+      "title": "Live Search",
+      "default": false
+     },
+     "live_sources": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Live Sources"
+     },
+     "llm": {
+      "$ref": "#/components/schemas/LLMStatus"
+     },
+     "persistence": {
+      "type": "boolean",
+      "title": "Persistence",
+      "default": false
+     },
+     "persistence_error": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Persistence Error"
+     },
+     "uptime_s": {
+      "type": "number",
+      "title": "Uptime S",
+      "default": 0.0
+     },
+     "version": {
+      "type": "string",
+      "title": "Version",
+      "default": ""
+     }
+    },
+    "type": "object",
+    "required": [
+     "ready",
+     "loading",
+     "error",
+     "release",
+     "live_search",
+     "live_sources",
+     "llm",
+     "persistence",
+     "persistence_error",
+     "uptime_s",
+     "version"
+    ],
+    "title": "StatusOut"
+   },
+   "Subtopic": {
+    "properties": {
+     "id": {
+      "type": "integer",
+      "title": "Id"
+     },
+     "parent": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Parent"
+     },
+     "name": {
+      "type": "string",
+      "title": "Name"
+     },
+     "keyword_label": {
+      "type": "string",
+      "title": "Keyword Label",
+      "default": ""
+     },
+     "summary": {
+      "type": "string",
+      "title": "Summary",
+      "default": ""
+     },
+     "key_concepts": {
+      "items": {
+       "$ref": "#/components/schemas/Concept"
+      },
+      "type": "array",
+      "title": "Key Concepts"
+     },
+     "beginner_entry": {
+      "type": "string",
+      "title": "Beginner Entry",
+      "default": ""
+     },
+     "keywords": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Keywords"
+     },
+     "size": {
+      "type": "integer",
+      "title": "Size",
+      "default": 0
+     },
+     "n_collection": {
+      "type": "integer",
+      "title": "N Collection",
+      "default": 0
+     },
+     "recent_share": {
+      "type": "number",
+      "title": "Recent Share",
+      "default": 0.0
+     },
+     "monthly": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Monthly"
+     },
+     "top_facets": {
+      "additionalProperties": {
+       "items": {
+        "items": {},
+        "type": "array"
+       },
+       "type": "array"
+      },
+      "type": "object",
+      "title": "Top Facets"
+     },
+     "representative": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Representative"
+     },
+     "n_open_problems": {
+      "type": "integer",
+      "title": "N Open Problems",
+      "default": 0
+     },
+     "recently_active": {
+      "type": "boolean",
+      "title": "Recently Active",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "id",
+     "parent",
+     "name",
+     "keyword_label",
+     "summary",
+     "key_concepts",
+     "beginner_entry",
+     "keywords",
+     "size",
+     "n_collection",
+     "recent_share",
+     "monthly",
+     "top_facets",
+     "representative",
+     "n_open_problems",
+     "recently_active"
+    ],
+    "title": "Subtopic"
+   },
+   "TaskRoute": {
+    "properties": {
+     "task": {
+      "type": "string",
+      "title": "Task"
+     },
+     "route": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Route"
+     }
+    },
+    "type": "object",
+    "required": [
+     "task",
+     "route"
+    ],
+    "title": "TaskRoute"
+   },
+   "TextOut": {
+    "properties": {
+     "filename": {
+      "type": "string",
+      "title": "Filename"
+     },
+     "media_type": {
+      "type": "string",
+      "title": "Media Type"
+     },
+     "content": {
+      "type": "string",
+      "title": "Content"
+     }
+    },
+    "type": "object",
+    "required": [
+     "filename",
+     "media_type",
+     "content"
+    ],
+    "title": "TextOut"
+   },
+   "TopicIn": {
+    "properties": {
+     "query": {
+      "type": "string",
+      "maxLength": 300,
+      "minLength": 2,
+      "title": "Query"
+     },
+     "refresh": {
+      "type": "boolean",
+      "title": "Refresh",
+      "default": false
+     }
+    },
+    "type": "object",
+    "required": [
+     "query"
+    ],
+    "title": "TopicIn"
+   },
+   "TopicOverview": {
+    "properties": {
+     "summary": {
+      "type": "string",
+      "title": "Summary",
+      "default": ""
+     },
+     "how_they_relate": {
+      "type": "string",
+      "title": "How They Relate",
+      "default": ""
+     },
+     "prerequisites": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Prerequisites"
+     }
+    },
+    "type": "object",
+    "required": [
+     "summary",
+     "how_they_relate",
+     "prerequisites"
+    ],
+    "title": "TopicOverview"
+   },
+   "TrendsOut": {
+    "properties": {
+     "reference_date": {
+      "type": "string",
+      "title": "Reference Date",
+      "default": ""
+     },
+     "default_window": {
+      "type": "integer",
+      "title": "Default Window",
+      "default": 6
+     },
+     "windows": {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array",
+      "title": "Windows"
+     },
+     "corpus_growth": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object",
+      "title": "Corpus Growth"
+     },
+     "history_days": {
+      "type": "integer",
+      "title": "History Days",
+      "default": 0
+     },
+     "sufficient_history": {
+      "type": "boolean",
+      "title": "Sufficient History",
+      "default": false
+     },
+     "ci_level": {
+      "type": "number",
+      "title": "Ci Level",
+      "default": 0.9
+     },
+     "quadrants": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "type": "object",
+      "title": "Quadrants"
+     },
+     "areas": {
+      "items": {
+       "$ref": "#/components/schemas/AreaSummary"
+      },
+      "type": "array",
+      "title": "Areas"
+     },
+     "corpus_monthly": {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object",
+      "title": "Corpus Monthly"
+     },
+     "area_monthly": {
+      "additionalProperties": {
+       "additionalProperties": {
+        "type": "integer"
+       },
+       "type": "object"
+      },
+      "type": "object",
+      "title": "Area Monthly"
+     }
+    },
+    "type": "object",
+    "required": [
+     "reference_date",
+     "default_window",
+     "windows",
+     "corpus_growth",
+     "history_days",
+     "sufficient_history",
+     "ci_level",
+     "quadrants",
+     "areas",
+     "corpus_monthly",
+     "area_monthly"
+    ],
+    "title": "TrendsOut"
+   },
+   "ValidationError": {
+    "properties": {
+     "loc": {
+      "items": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      },
+      "type": "array",
+      "title": "Location"
+     },
+     "msg": {
+      "type": "string",
+      "title": "Message"
+     },
+     "type": {
+      "type": "string",
+      "title": "Error Type"
+     },
+     "input": {
+      "title": "Input"
+     },
+     "ctx": {
+      "type": "object",
+      "title": "Context"
+     }
+    },
+    "type": "object",
+    "required": [
+     "loc",
+     "msg",
+     "type"
+    ],
+    "title": "ValidationError"
+   },
+   "WorkspaceOut": {
+    "properties": {
+     "key": {
+      "type": "string",
+      "title": "Key"
+     },
+     "query": {
+      "type": "string",
+      "title": "Query"
+     },
+     "bundle_version": {
+      "type": "string",
+      "title": "Bundle Version",
+      "default": ""
+     },
+     "created_at": {
+      "type": "number",
+      "title": "Created At",
+      "default": 0.0
+     },
+     "overview": {
+      "$ref": "#/components/schemas/TopicOverview"
+     },
+     "subtopics": {
+      "items": {
+       "$ref": "#/components/schemas/Subtopic"
+      },
+      "type": "array",
+      "title": "Subtopics"
+     },
+     "papers": {
+      "items": {
+       "$ref": "#/components/schemas/WsPaper"
+      },
+      "type": "array",
+      "title": "Papers"
+     },
+     "reading_path": {
+      "items": {
+       "$ref": "#/components/schemas/ReadingItem"
+      },
+      "type": "array",
+      "title": "Reading Path"
+     },
+     "stats": {
+      "additionalProperties": true,
+      "type": "object",
+      "title": "Stats"
+     },
+     "llm_used": {
+      "type": "boolean",
+      "title": "Llm Used",
+      "default": false
+     },
+     "warnings": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array",
+      "title": "Warnings"
+     }
+    },
+    "type": "object",
+    "required": [
+     "key",
+     "query",
+     "bundle_version",
+     "created_at",
+     "overview",
+     "subtopics",
+     "papers",
+     "reading_path",
+     "stats",
+     "llm_used",
+     "warnings"
+    ],
+    "title": "WorkspaceOut"
+   },
+   "WsPaper": {
+    "properties": {
+     "paper_id": {
+      "type": "string",
+      "title": "Paper Id"
+     },
+     "title": {
+      "type": "string",
+      "title": "Title"
+     },
+     "abstract": {
+      "type": "string",
+      "title": "Abstract",
+      "default": ""
+     },
+     "date": {
+      "type": "string",
+      "title": "Date",
+      "default": ""
+     },
+     "cited_by_count": {
+      "type": "integer",
+      "title": "Cited By Count",
+      "default": 0
+     },
+     "url": {
+      "type": "string",
+      "title": "Url",
+      "default": ""
+     },
+     "in_collection": {
+      "type": "boolean",
+      "title": "In Collection",
+      "default": true
+     },
+     "is_new": {
+      "type": "boolean",
+      "title": "Is New",
+      "default": false
+     },
+     "sim": {
+      "anyOf": [
+       {
+        "type": "number"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Sim"
+     },
+     "subtopic": {
+      "type": "integer",
+      "title": "Subtopic",
+      "default": -1
+     },
+     "micro": {
+      "type": "integer",
+      "title": "Micro",
+      "default": -1
+     }
+    },
+    "type": "object",
+    "required": [
+     "paper_id",
+     "title",
+     "abstract",
+     "date",
+     "cited_by_count",
+     "url",
+     "in_collection",
+     "is_new",
+     "sim",
+     "subtopic",
+     "micro"
+    ],
+    "title": "WsPaper"
+   }
+  }
+ }
+}

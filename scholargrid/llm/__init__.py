@@ -28,6 +28,7 @@ FEATURE_PROMPT_MODULES: list[str] = [      # plans 03-07 append their prompt mod
     "scholargrid.workspace.prompts",
     "scholargrid.gaps.prompts",
     "scholargrid.plan.prompts",
+    "scholargrid.assistant.prompts",
 ]
 _CLIENTS: Dict[str, Any] = {}
 

@@ -168,9 +168,12 @@ def fetch_live(exp: Expansion, cfg, *, page: int = 0, cursors: Optional[Dict[str
                 out.cursors[name] = res.next_cursor
                 out.status[name] = "ok"
                 if ttl > 0:
-                    save_json({"at": now(), "records": res.records, "total": res.total,
-                               "next": res.next_cursor},
-                              _cache_path(ensure_dir(cache_dir), api_phrases, name, page, per_source))
+                    try:  # the cache is best-effort; a locked file must never fail the search
+                        save_json({"at": now(), "records": res.records, "total": res.total,
+                                   "next": res.next_cursor},
+                                  _cache_path(ensure_dir(cache_dir), api_phrases, name, page, per_source))
+                    except OSError as exc:
+                        log.info("Live cache write skipped (%s).", exc)
             for f in [f for f in pending if time.monotonic() >= deadlines[futures[f]]]:
                 name = futures[f]
                 out.status[name], out.cursors[name] = "slow", todo[name]

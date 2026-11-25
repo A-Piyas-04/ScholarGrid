@@ -307,6 +307,7 @@ class Llm(_Section):
         "synthesize_gap": _t([FLASH, LITE], "medium", 16384, expected=1500),
         "plan": _t([FLASH, LITE], "medium", 24576, expected=3500),
         "check": _t([LITE], "minimal", 1024, expected=50),
+        "brief": _t([FLASH, LITE], "low", 16384, expected=2500),
     })
     prices: Dict[str, LlmPrice] = Field(default_factory=dict)        # only if you enable billing somewhere
     max_concurrency: int = Field(default=2, ge=1, le=16)
